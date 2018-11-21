@@ -29,6 +29,12 @@ public class TestMain {
     }
 
     @Test
+    public void testProxy() throws InstantiationException, IllegalAccessException {
+        DaoTest daoTest = (DaoTest) BeanProxyFactory.newInstance(UserDaoTest.class, "proxy.UserDaoInterceptor");
+        daoTest.save();
+    }
+
+    @Test
     public void testInsertUser() {
         user.setAge(18);
         user.setUserName("赵六");
@@ -68,12 +74,6 @@ public class TestMain {
         for (User user : users) {
             System.out.println(user);
         }
-    }
-
-    @Test
-    public void testProxy() throws InstantiationException, IllegalAccessException {
-        DaoTest daoTest = (DaoTest) BeanProxyFactory.newInstance(UserDaoTest.class, "proxy.UserDaoInterceptor");
-        daoTest.save();
     }
 
 }
