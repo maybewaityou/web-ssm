@@ -20,6 +20,7 @@
 
         <!-- junit 版本号 -->
         <junit.version>4.12</junit.version>
+        <javaEE.version>8.0</javaEE.version>
         <!-- spring 版本号 -->
         <spring.version>5.1.2.RELEASE</spring.version>
         <!-- mybatis 版本号 -->
@@ -30,6 +31,7 @@
         <mysql-driver.version>8.0.13</mysql-driver.version>
         <!-- aspectj 版本号 -->
         <aspectj.version>1.9.2</aspectj.version>
+        <jackson.version>2.9.7</jackson.version>
         <!-- log4j 日志包版本号 -->
         <slf4j.version>1.8.0-beta2</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
@@ -42,6 +44,15 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- java ee start -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaEE.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- java ee end -->
 
         <!-- 添加 spring 核心依赖 start -->
         <dependency>
@@ -172,6 +183,14 @@
             <version>2.5.0</version>
         </dependency>
         <!-- 添加数据库连接池依赖 end -->
+
+        <!-- JSON start -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <!-- JSON end -->
 
         <!-- 添加日志相关 jar 包 start -->
         <dependency>
