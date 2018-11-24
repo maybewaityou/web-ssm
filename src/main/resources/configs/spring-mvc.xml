@@ -18,4 +18,6 @@
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>
 
+    <!--<bean class="com.meepwn.ssm.enhance.exception.ExceptionHandler"/>-->
+
 </beans>

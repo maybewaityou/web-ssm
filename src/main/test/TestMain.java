@@ -1,4 +1,5 @@
-import com.meepwn.ssm.factory.proxy.BeanProxyFactory;
+import com.meepwn.ssm.common.utils.LogUtils;
+import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
 import com.meepwn.ssm.pojo.User;
 import com.meepwn.ssm.service.UserService;
 import org.junit.Test;
@@ -74,6 +75,11 @@ public class TestMain {
         for (User user : users) {
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void testLog() {
+        LogUtils.d("=====");
     }
 
 }

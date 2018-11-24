@@ -1,6 +1,6 @@
 package proxy;
 
-import com.meepwn.ssm.factory.proxy.Interceptor;
+import com.meepwn.ssm.enhance.factory.proxy.Interceptor;
 
 import java.lang.reflect.Method;
 

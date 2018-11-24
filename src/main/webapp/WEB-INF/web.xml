@@ -40,7 +40,7 @@
     </filter-mapping>
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>com.meepwn.ssm.filter.EncodingFilter</filter-class>
+        <filter-class>com.meepwn.ssm.enhance.filter.EncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>

@@ -1,4 +1,4 @@
-package com.meepwn.ssm.factory.proxy;
+package com.meepwn.ssm.enhance.factory.proxy;
 
 public class BeanProxyFactory {
 

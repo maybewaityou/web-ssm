@@ -1,4 +1,4 @@
-package com.meepwn.ssm.filter;
+package com.meepwn.ssm.enhance.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,6 @@ public class EncodingFilter implements Filter {
 
         request.setCharacterEncoding(encoding);
         response.setCharacterEncoding(encoding);
-        response.setContentType("application/json");
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

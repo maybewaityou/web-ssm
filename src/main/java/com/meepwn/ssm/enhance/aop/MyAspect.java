@@ -1,4 +1,4 @@
-package com.meepwn.ssm.aop;
+package com.meepwn.ssm.enhance.aop;
 
 public class MyAspect {
 

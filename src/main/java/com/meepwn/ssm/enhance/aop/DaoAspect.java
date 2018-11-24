@@ -1,4 +1,4 @@
-package com.meepwn.ssm.aop;
+package com.meepwn.ssm.enhance.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
