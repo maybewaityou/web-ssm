@@ -9,15 +9,8 @@
             http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <aop:aspectj-autoproxy/>
+
     <bean id="daoAspect" class="com.meepwn.ssm.enhance.aop.DaoAspect"/>
     <bean id="logAspect" class="com.meepwn.ssm.enhance.aop.LogAspect"/>
-
-    <!--<bean id="myAspect" class="com.meepwn.ssm.enhance.aop.MyAspect"/>-->
-    <!--<aop:config>-->
-        <!--<aop:pointcut id="pointcut1" expression="execution(* com.meepwn.ssm.dao.impl.UserDaoImpl.findAllUsers())"/>-->
-        <!--<aop:aspect ref="myAspect">-->
-            <!--<aop:before method="before" pointcut-ref="pointcut1"/>-->
-        <!--</aop:aspect>-->
-    <!--</aop:config>-->
 
 </beans>
