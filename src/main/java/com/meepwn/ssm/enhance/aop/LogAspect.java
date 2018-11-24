@@ -19,10 +19,6 @@ public class LogAspect {
     private void aspectJMethod() {
     }
 
-    @Pointcut("execution(* com.meepwn.ssm.common.utils.ResponseUtils.responseJSON(..))")
-    private void aspectJResponseMethod() {
-    }
-
     @Before("aspectJMethod()")
     public void before(JoinPoint joinPoint) throws JsonProcessingException {
         Object[] args = joinPoint.getArgs();
