@@ -26,8 +26,6 @@ public class ResponseUtils {
         String jsonString = mapper.writeValueAsString(responseModel);
 
         response.setContentType(JSON_CONTENT_TYPE);
-        response.getWriter().write(jsonString);
-        response.getWriter().close();
 
         return jsonString;
     }

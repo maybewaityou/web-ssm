@@ -11,8 +11,24 @@ public class LogUtils {
         logger.debug(msg);
     }
 
+    public static void d(String format, Object arg) {
+        logger.debug(format, arg);
+    }
+
+    public static void i(String msg) {
+        logger.info(msg);
+    }
+
+    public static void i(String format, Object arg) {
+        logger.info(format, arg);
+    }
+
     public static void e(String msg) {
         logger.error(msg);
+    }
+
+    public static void e(String format, Object arg) {
+        logger.error(format, arg);
     }
 
     private static String defaultTag() {

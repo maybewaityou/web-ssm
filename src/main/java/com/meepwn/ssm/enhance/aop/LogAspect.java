@@ -26,14 +26,15 @@ public class LogAspect {
             if (arg instanceof HttpServletRequest) continue;
             if (arg instanceof HttpServletResponse) continue;
             ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(arg);
-            LogUtils.d(jsonString);
+            String params = mapper.writeValueAsString(arg);
+            LogUtils.d("== params ===>>>> {}", params);
+            break;
         }
     }
 
     @AfterReturning(value = "aspectJMethod()", returning = "jsonString")
     public void afterReturning(JoinPoint joinPoint, String jsonString) {
-        LogUtils.d(jsonString);
+        LogUtils.d("== response ===>>>> {}", jsonString);
     }
 
 }

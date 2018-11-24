@@ -25,7 +25,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(responseModel);
 
-            LogUtils.e(jsonString);
+            LogUtils.e("== exception ===>>>> {}", jsonString);
 
             response.setContentType(ResponseUtils.JSON_CONTENT_TYPE);
             response.getWriter().write(jsonString);

@@ -21,15 +21,6 @@ public class UserController {
     @Resource
     private UserService userService;
 
-//    @RequestMapping("/selectUser.do")
-//    public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        int userId = Integer.parseInt(request.getParameter("id"));
-//        User user = userService.getUser(userId);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(user));
-//        response.getWriter().close();
-//    }
-
     @ResponseBody
     @RequestMapping(value = "/selectUser.do", method = RequestMethod.POST)
     public String selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) throws IOException {
