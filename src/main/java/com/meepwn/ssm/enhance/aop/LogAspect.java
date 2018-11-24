@@ -27,11 +27,12 @@ public class LogAspect {
 
     @Before(value = "aspectJMethod() && args(params, response)", argNames = "params,response")
     public void beforeExecute(Object params, HttpServletResponse response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String paramsString = mapper.writeValueAsString(params);
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         long startTime = System.currentTimeMillis();
         startTimeThreadLocal.set(startTime); // 线程绑定变量 (该数据只有当前请求的线程可见)
+        ObjectMapper mapper = new ObjectMapper();
+        String paramsString = mapper.writeValueAsString(params);
+
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());
         LogUtils.i("== params ===>>>> {}", paramsString);
     }
@@ -45,6 +46,7 @@ public class LogAspect {
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());
         LogUtils.i("== response ===>>>> {}", jsonString);
         LogUtils.i("== network cost time ===>>>> {}", (endTime - beginTime));
+
         startTimeThreadLocal.remove();
     }
 

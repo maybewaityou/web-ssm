@@ -13,11 +13,13 @@
 
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.meepwn.ssm.controller"/>
-    <!-- 开启SpringMVC注解模式 -->
+
+    <!-- 开启 SpringMVC 注解模式 -->
     <mvc:annotation-driven/>
-    <!-- 静态资源默认servlet配置 -->
+    <!-- 静态资源默认 servlet 配置 -->
     <mvc:default-servlet-handler/>
 
+    <bean id="springContext" class="com.meepwn.ssm.application.SpringContext"/>
     <bean class="com.meepwn.ssm.enhance.exception.ExceptionHandler"/>
 
 </beans>
