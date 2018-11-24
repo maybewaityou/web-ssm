@@ -31,6 +31,10 @@ public class LogUtils {
         logger.error(format, arg);
     }
 
+    public static boolean isDebugEnabled() {
+        return logger.isDebugEnabled();
+    }
+
     private static String defaultTag() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         StackTraceElement log = stackTrace[1];

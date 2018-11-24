@@ -19,7 +19,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
             ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-            responseModel.setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode());
+            responseModel.setRetCode(ResponseEnum.EXCEPTION.getRetCode());
             responseModel.setRetMsg(ex.getMessage());
             responseModel.setData("{}");
             ObjectMapper mapper = new ObjectMapper();

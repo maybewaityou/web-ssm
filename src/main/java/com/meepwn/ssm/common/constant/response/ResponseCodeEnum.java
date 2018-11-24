@@ -3,7 +3,8 @@ package com.meepwn.ssm.common.constant.response;
 public enum ResponseCodeEnum {
 
     SUCCESS("000000"),
-    FAILURE("111111");
+    FAILURE("111111"),
+    EXCEPTION("222222");
 
     private String retCode;
 
