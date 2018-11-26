@@ -3,10 +3,12 @@ package com.meepwn.ssm.service.impl;
 import com.meepwn.ssm.dao.UserDao;
 import com.meepwn.ssm.pojo.User;
 import com.meepwn.ssm.service.UserService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Resource
