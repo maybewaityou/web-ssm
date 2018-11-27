@@ -22,6 +22,5 @@
     <!-- 别名 -->
     <typeAliases>
         <package name="com.meepwn.ssm.pojo"/>
-        <!--<typeAlias alias="role" type="com.meepwn.ssm.pojo.Role"/>-->
     </typeAliases>
 </configuration>
