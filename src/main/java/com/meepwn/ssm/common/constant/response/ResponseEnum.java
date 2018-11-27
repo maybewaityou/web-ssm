@@ -7,6 +7,7 @@ public enum ResponseEnum {
     QUERY_SUCCESS(ResponseCodeEnum.SUCCESS.getRetCode(), "接口查询成功"),
     QUERY_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "接口查询失败"),
     QUERY_USER_SUCCESS(ResponseCodeEnum.FAILURE.getRetCode(), "该用户不存在"),
+    QUERY_USERS_SUCCESS(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
 
     EXCEPTION(ResponseCodeEnum.EXCEPTION.getRetCode(), "接口访问异常");
 

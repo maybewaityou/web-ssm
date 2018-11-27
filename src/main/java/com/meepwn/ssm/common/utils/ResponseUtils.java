@@ -17,7 +17,7 @@ public class ResponseUtils {
 
     public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) throws IOException {
         ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-        setResponseInfo(responseModel, value == null);
+        setResponseInfo(responseModel, value == null, ResponseEnum.QUERY_USER_SUCCESS);
         Objects.requireNonNull(responseModel).setData(value);
 
         response.setContentType(JSON_CONTENT_TYPE);
@@ -27,8 +27,8 @@ public class ResponseUtils {
 
     public static ResponseModel responseModel(ServletResponse response, List list, Object... args) throws IOException {
         ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-        setResponseInfo(responseModel, list == null);
-        Objects.requireNonNull(responseModel).setDataList(list);
+        setResponseInfo(responseModel, list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
+        if (list.size() != 0) Objects.requireNonNull(responseModel).setDataList(list);
 
         response.setContentType(JSON_CONTENT_TYPE);
 
@@ -41,12 +41,17 @@ public class ResponseUtils {
         return mapper.writeValueAsString(responseModel);
     }
 
-    private static void setResponseInfo(ResponseModel responseModel, boolean b) {
+    /**
+     * @param responseModel 响应 Model
+     * @param b             判断条件
+     * @param failureEnum   报错枚举
+     */
+    private static void setResponseInfo(ResponseModel responseModel, boolean b, ResponseEnum failureEnum) {
         if (b) {
-            responseModel.setRetCode(ResponseEnum.QUERY_USER_SUCCESS.getRetCode());
-            responseModel.setRetMsg(ResponseEnum.QUERY_USER_SUCCESS.getRetMsg());
+            Objects.requireNonNull(responseModel).setRetCode(failureEnum.getRetCode());
+            responseModel.setRetMsg(failureEnum.getRetMsg());
         } else {
-            responseModel.setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode());
+            Objects.requireNonNull(responseModel).setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode());
             responseModel.setRetMsg(ResponseEnum.QUERY_SUCCESS.getRetMsg());
         }
     }
