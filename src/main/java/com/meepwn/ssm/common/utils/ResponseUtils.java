@@ -15,6 +15,13 @@ public class ResponseUtils {
 
     public static final String JSON_CONTENT_TYPE = "application/json";
 
+    /**
+     * 响应数据
+     * @param response 响应对象
+     * @param value 返回结果
+     * @param args 可选参数
+     * @return 响应数据
+     */
     public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) {
         ResponseModel.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
         ResponseModel responseModel = builder.setData(value).build();
@@ -24,6 +31,13 @@ public class ResponseUtils {
         return responseModel;
     }
 
+    /**
+     * 响应数据
+     * @param response 响应对象
+     * @param list 返回结果
+     * @param args 可选参数
+     * @return 响应数据
+     */
     public static ResponseModel responseModel(ServletResponse response, List list, Object... args) {
         ResponseModel.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
         ResponseModel responseModel;
