@@ -17,9 +17,10 @@ public class ResponseUtils {
 
     /**
      * 响应数据
+     *
      * @param response 响应对象
-     * @param value 返回结果
-     * @param args 可选参数
+     * @param value    返回结果
+     * @param args     可选参数
      * @return 响应数据
      */
     public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) {
@@ -33,9 +34,10 @@ public class ResponseUtils {
 
     /**
      * 响应数据
+     *
      * @param response 响应对象
-     * @param list 返回结果
-     * @param args 可选参数
+     * @param list     返回结果
+     * @param args     可选参数
      * @return 响应数据
      */
     public static ResponseModel responseModel(ServletResponse response, List list, Object... args) {
@@ -52,8 +54,30 @@ public class ResponseUtils {
         return responseModel;
     }
 
+    /**
+     * 响应数据 (String)
+     *
+     * @param response 响应对象
+     * @param value    返回结果
+     * @param args     可选参数
+     * @return 响应数据
+     */
     public static String responseString(ServletResponse response, Object value, Object... args) throws IOException {
         ResponseModel responseModel = responseModel(response, value, args);
+        ObjectMapper mapper = JSONMapperFactory.newInstance();
+        return mapper.writeValueAsString(responseModel);
+    }
+
+    /**
+     * 响应数据 (String)
+     *
+     * @param response 响应对象
+     * @param list     返回结果
+     * @param args     可选参数
+     * @return 响应数据
+     */
+    public static String responseString(ServletResponse response, List list, Object... args) throws IOException {
+        ResponseModel responseModel = responseModel(response, list, args);
         ObjectMapper mapper = JSONMapperFactory.newInstance();
         return mapper.writeValueAsString(responseModel);
     }

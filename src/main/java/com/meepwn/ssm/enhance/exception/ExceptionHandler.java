@@ -26,7 +26,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
                     .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
                     .setException(ex)
                     .build();
-            System.out.println("=======");
+
             ObjectMapper mapper = JSONMapperFactory.newInstance();
             String jsonString = mapper.writeValueAsString(responseModel);
 
