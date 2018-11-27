@@ -20,10 +20,13 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-            ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-            Objects.requireNonNull(responseModel).setRetCode(ResponseEnum.EXCEPTION.getRetCode());
-            responseModel.setRetMsg(ResponseEnum.EXCEPTION.getRetMsg());
-            responseModel.setException(ex);
+            ResponseModel.Builder builder = (ResponseModel.Builder) BeanFactory.newInstance(ResponseModel.Builder.class);
+            ResponseModel responseModel = Objects.requireNonNull(builder)
+                    .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
+                    .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
+                    .setException(ex)
+                    .build();
+            System.out.println("=======");
             ObjectMapper mapper = JSONMapperFactory.newInstance();
             String jsonString = mapper.writeValueAsString(responseModel);
 

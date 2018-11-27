@@ -15,20 +15,23 @@ public class ResponseUtils {
 
     public static final String JSON_CONTENT_TYPE = "application/json";
 
-    public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) throws IOException {
-        ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-        setResponseInfo(responseModel, value == null, ResponseEnum.QUERY_USER_SUCCESS);
-        Objects.requireNonNull(responseModel).setData(value);
+    public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) {
+        ResponseModel.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
+        ResponseModel responseModel = builder.setData(value).build();
 
         response.setContentType(JSON_CONTENT_TYPE);
 
         return responseModel;
     }
 
-    public static ResponseModel responseModel(ServletResponse response, List list, Object... args) throws IOException {
-        ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-        setResponseInfo(responseModel, list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
-        if (list.size() != 0) Objects.requireNonNull(responseModel).setDataList(list);
+    public static ResponseModel responseModel(ServletResponse response, List list, Object... args) {
+        ResponseModel.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
+        ResponseModel responseModel;
+        if (list.size() != 0) {
+            responseModel = builder.setDataList(list).build();
+        } else {
+            responseModel = builder.build();
+        }
 
         response.setContentType(JSON_CONTENT_TYPE);
 
@@ -42,17 +45,17 @@ public class ResponseUtils {
     }
 
     /**
-     * @param responseModel 响应 Model
-     * @param b             判断条件
-     * @param failureEnum   报错枚举
+     * @param b           判断条件
+     * @param failureEnum 报错枚举
      */
-    private static void setResponseInfo(ResponseModel responseModel, boolean b, ResponseEnum failureEnum) {
+    private static ResponseModel.Builder setResponseInfo(boolean b, ResponseEnum failureEnum) {
+        ResponseModel.Builder builder = (ResponseModel.Builder) BeanFactory.newInstance(ResponseModel.Builder.class);
         if (b) {
-            Objects.requireNonNull(responseModel).setRetCode(failureEnum.getRetCode());
-            responseModel.setRetMsg(failureEnum.getRetMsg());
+            return Objects.requireNonNull(builder).setRetCode(failureEnum.getRetCode())
+                    .setRetMsg(failureEnum.getRetMsg());
         } else {
-            Objects.requireNonNull(responseModel).setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode());
-            responseModel.setRetMsg(ResponseEnum.QUERY_SUCCESS.getRetMsg());
+            return Objects.requireNonNull(builder).setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode())
+                    .setRetMsg(ResponseEnum.QUERY_SUCCESS.getRetMsg());
         }
     }
 

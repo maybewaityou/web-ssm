@@ -10,44 +10,70 @@ public class ResponseModel {
     private List dataList;
     private Exception exception;
 
-    public String getRetCode() {
-        return retCode;
+    public ResponseModel(Builder builder) {
+        retCode = builder.retCode;
+        retMsg = builder.retMsg;
+        data = builder.data;
+        dataList = builder.dataList;
+        exception = builder.exception;
     }
 
-    public void setRetCode(String retCode) {
-        this.retCode = retCode;
+    public static class Builder {
+        private String retCode;
+        private String retMsg;
+        private Object data;
+        private List dataList;
+        private Exception exception;
+
+        public Builder setRetCode(String retCode) {
+            this.retCode = retCode;
+            return this;
+        }
+
+        public Builder setRetMsg(String retMsg) {
+            this.retMsg = retMsg;
+            return this;
+        }
+
+        public Builder setData(Object data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder setDataList(List dataList) {
+            this.dataList = dataList;
+            return this;
+        }
+
+        public Builder setException(Exception exception) {
+            this.exception = exception;
+            return this;
+        }
+
+        public ResponseModel build() {
+            return new ResponseModel(this);
+        }
+
+    }
+
+    public String getRetCode() {
+        return retCode;
     }
 
     public String getRetMsg() {
         return retMsg;
     }
 
-    public void setRetMsg(String retMsg) {
-        this.retMsg = retMsg;
-    }
-
     public Object getData() {
         return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     public List getDataList() {
         return dataList;
     }
 
-    public void setDataList(List dataList) {
-        this.dataList = dataList;
-    }
-
     public Exception getException() {
         return exception;
-    }
-
-    public void setException(Exception exception) {
-        this.exception = exception;
     }
 
     @Override
