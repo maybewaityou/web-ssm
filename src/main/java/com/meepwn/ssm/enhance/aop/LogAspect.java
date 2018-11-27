@@ -3,6 +3,7 @@ package com.meepwn.ssm.enhance.aop;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meepwn.ssm.common.utils.LogUtils;
+import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -30,7 +31,7 @@ public class LogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         long startTime = System.currentTimeMillis();
         startTimeThreadLocal.set(startTime); // 线程绑定变量 (该数据只有当前请求的线程可见)
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = JSONMapperFactory.newInstance();
         String paramsString = mapper.writeValueAsString(params);
 
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());

@@ -2,6 +2,7 @@ package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.common.utils.ResponseUtils;
 import com.meepwn.ssm.pojo.User;
+import com.meepwn.ssm.pojo.response.ResponseModel;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @ResponseBody
     @RequestMapping(value = "/selectUser.do", method = RequestMethod.POST)
-    public String selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) throws IOException {
+    @ResponseBody
+    public ResponseModel selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) throws IOException {
         String id = params.get("id");
         User user = userService.getUser(Integer.parseInt(id));
-        return ResponseUtils.responseJSON(response, user, params);
+        return ResponseUtils.responseModel(response, user, params);
     }
 
 }

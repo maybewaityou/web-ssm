@@ -5,6 +5,7 @@ import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.common.utils.LogUtils;
 import com.meepwn.ssm.common.utils.ResponseUtils;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
+import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
 import com.meepwn.ssm.pojo.response.ResponseModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -21,8 +22,8 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
             ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
             responseModel.setRetCode(ResponseEnum.EXCEPTION.getRetCode());
             responseModel.setRetMsg(ex.getMessage());
-            responseModel.setData("{}");
-            ObjectMapper mapper = new ObjectMapper();
+            responseModel.setData(new Object());
+            ObjectMapper mapper = JSONMapperFactory.newInstance();
             String jsonString = mapper.writeValueAsString(responseModel);
 
             LogUtils.e("== exception ===>>>> {}", jsonString);

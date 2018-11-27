@@ -16,7 +16,30 @@
     <context:component-scan base-package="com.meepwn.ssm.service"/>
 
     <!-- 开启 SpringMVC 注解模式 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean id="mappingJacksonHttpMessageConverter"
+                  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <!-- 为null字段时不显示 -->
+                        <property name="serializationInclusion">
+                            <!--<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>-->
+                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">ALWAYS</value>
+                        </property>
+                        <!-- serializationInclusion 为 ALWAYS 时, 需要配置下面的 Serialize -->
+                        <property name="serializerProvider">
+                            <bean class="com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl">
+                                <property name="nullValueSerializer">
+                                    <bean class="com.meepwn.ssm.enhance.aop.serializer.NullValueSerializer"/>
+                                </property>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!-- 静态资源默认 servlet 配置 -->
     <mvc:default-servlet-handler/>
 
