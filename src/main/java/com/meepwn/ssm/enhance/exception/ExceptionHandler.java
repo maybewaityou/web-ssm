@@ -22,7 +22,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
         try {
             ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
             Objects.requireNonNull(responseModel).setRetCode(ResponseEnum.EXCEPTION.getRetCode());
-            responseModel.setRetMsg(ex.getMessage());
+            responseModel.setRetMsg(ResponseEnum.EXCEPTION.getRetMsg());
             responseModel.setException(ex);
             ObjectMapper mapper = JSONMapperFactory.newInstance();
             String jsonString = mapper.writeValueAsString(responseModel);
