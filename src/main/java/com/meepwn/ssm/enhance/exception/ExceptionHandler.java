@@ -13,6 +13,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ExceptionHandler extends SimpleMappingExceptionResolver {
 
@@ -20,7 +21,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
             ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
-            responseModel.setRetCode(ResponseEnum.EXCEPTION.getRetCode());
+            Objects.requireNonNull(responseModel).setRetCode(ResponseEnum.EXCEPTION.getRetCode());
             responseModel.setRetMsg(ex.getMessage());
             responseModel.setException(ex);
             ObjectMapper mapper = JSONMapperFactory.newInstance();

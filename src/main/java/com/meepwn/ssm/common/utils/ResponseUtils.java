@@ -9,6 +9,7 @@ import com.meepwn.ssm.pojo.response.ResponseModel;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ResponseUtils {
 
@@ -17,7 +18,7 @@ public class ResponseUtils {
     public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) throws IOException {
         ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
         setResponseInfo(responseModel, value == null);
-        responseModel.setData(value);
+        Objects.requireNonNull(responseModel).setData(value);
 
         response.setContentType(JSON_CONTENT_TYPE);
 
@@ -27,7 +28,7 @@ public class ResponseUtils {
     public static ResponseModel responseModel(ServletResponse response, List list, Object... args) throws IOException {
         ResponseModel responseModel = (ResponseModel) BeanFactory.newInstance(ResponseModel.class);
         setResponseInfo(responseModel, list == null);
-        responseModel.setDataList(list);
+        Objects.requireNonNull(responseModel).setDataList(list);
 
         response.setContentType(JSON_CONTENT_TYPE);
 
