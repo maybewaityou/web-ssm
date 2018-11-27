@@ -24,8 +24,7 @@
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">
                         <!-- 为null字段时不显示 -->
                         <property name="serializationInclusion">
-                            <!--<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>-->
-                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">ALWAYS</value>
+                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
                         </property>
                         <!-- serializationInclusion 为 ALWAYS 时, 需要配置下面的 Serialize -->
                         <property name="serializerProvider">

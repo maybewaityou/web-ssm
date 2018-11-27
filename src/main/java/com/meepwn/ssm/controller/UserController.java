@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,12 +23,25 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/selectUser.do", method = RequestMethod.POST)
     @ResponseBody
+    @RequestMapping(value = "/selectUser.do", method = RequestMethod.POST)
     public ResponseModel selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) throws IOException {
         String id = params.get("id");
         User user = userService.getUser(Integer.parseInt(id));
         return ResponseUtils.responseModel(response, user, params);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/findAllUsers.do", method = RequestMethod.POST)
+    public ResponseModel findAllUsers(HttpServletResponse response) throws IOException {
+        List<User> users = userService.findAllUsers();
+        return ResponseUtils.responseModel(response, users);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/throwsEx.do", method = RequestMethod.POST)
+    public ResponseModel throwsEx(HttpServletResponse response) throws IOException {
+        throw new RuntimeException("报错了...");
     }
 
 }
