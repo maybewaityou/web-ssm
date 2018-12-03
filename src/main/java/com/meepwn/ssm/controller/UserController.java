@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,20 +22,20 @@ public class UserController {
     private UserService userService;
 
     @POST("/selectUser.do")
-    public ResponseModel selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) throws IOException {
+    public ResponseModel selectUser(@RequestBody Map<String, String> params, HttpServletResponse response) {
         String id = params.get("id");
         User user = userService.getUser(Integer.parseInt(id));
         return ResponseUtils.responseModel(response, user, params);
     }
 
     @POST("/findAllUsers.do")
-    public ResponseModel findAllUsers(HttpServletResponse response) throws IOException {
+    public ResponseModel findAllUsers(HttpServletResponse response) {
         List<User> users = userService.findAllUsers();
         return ResponseUtils.responseModel(response, users);
     }
 
     @POST("/throwsEx.do")
-    public ResponseModel throwsEx(HttpServletResponse response) throws IOException {
+    public ResponseModel throwsEx(HttpServletResponse response) {
         throw new RuntimeException("报错了...");
     }
 
