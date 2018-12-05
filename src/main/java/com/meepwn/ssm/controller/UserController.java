@@ -34,6 +34,12 @@ public class UserController {
         return ResponseUtils.responseModel(response, users);
     }
 
+    @POST("/findTxAllUsers.do")
+    public ResponseModel findTxAllUsers(HttpServletResponse response) {
+        List<User> users = userService.findAllUsers();
+        return ResponseUtils.responseModel(response, users);
+    }
+
     @POST("/throwsEx.do")
     public ResponseModel throwsEx(HttpServletResponse response) {
         throw new RuntimeException("报错了...");
