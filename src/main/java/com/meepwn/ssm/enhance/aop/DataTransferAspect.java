@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.NamedThreadLocal;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Aspect
+@Component
 public class DataTransferAspect {
 
     private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
@@ -71,7 +73,7 @@ public class DataTransferAspect {
      * 打印日志(响应)
      *
      * @param responseDTO 响应报文
-     * @param request       请求
+     * @param request     请求
      */
     private void responseLog(ResponseDTO responseDTO, HttpServletRequest request) {
         long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
@@ -88,7 +90,7 @@ public class DataTransferAspect {
      * 打印日志(异常)
      *
      * @param responseDTO 响应实体
-     * @param request       请求
+     * @param request     请求
      */
     private void exceptionLog(ResponseDTO responseDTO, HttpServletRequest request) {
         long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
