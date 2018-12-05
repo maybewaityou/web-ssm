@@ -2,7 +2,7 @@ package com.meepwn.ssm.entity.dto;
 
 import java.util.List;
 
-public class ResponseModel {
+public class ResponseDTO {
 
     private String retCode;
     private String retMsg;
@@ -10,7 +10,7 @@ public class ResponseModel {
     private List dataList;
     private Throwable exception;
 
-    public ResponseModel(Builder builder) {
+    public ResponseDTO(Builder builder) {
         retCode = builder.retCode;
         retMsg = builder.retMsg;
         data = builder.data;
@@ -50,8 +50,8 @@ public class ResponseModel {
             return this;
         }
 
-        public ResponseModel build() {
-            return new ResponseModel(this);
+        public ResponseDTO build() {
+            return new ResponseDTO(this);
         }
 
     }
@@ -78,7 +78,7 @@ public class ResponseModel {
 
     @Override
     public String toString() {
-        return "ResponseModel{" +
+        return "ResponseDTO{" +
                 "retCode='" + retCode + '\'' +
                 ", retMsg='" + retMsg + '\'' +
                 ", data=" + data +

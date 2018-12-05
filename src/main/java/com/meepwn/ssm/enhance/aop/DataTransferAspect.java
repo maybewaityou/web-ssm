@@ -3,7 +3,7 @@ package com.meepwn.ssm.enhance.aop;
 import com.meepwn.ssm.common.utils.JSONUtils;
 import com.meepwn.ssm.common.utils.LogUtils;
 import com.meepwn.ssm.common.utils.ResponseUtils;
-import com.meepwn.ssm.entity.dto.ResponseModel;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,10 +25,10 @@ public class DataTransferAspect {
     }
 
     @Around("responseAspectMethod()")
-    public ResponseModel responseModel(ProceedingJoinPoint joinPoint) {
+    public ResponseDTO responseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
-        ResponseModel responseModel;
+        ResponseDTO responseDTO;
         try {
             Object[] args = joinPoint.getArgs();
 
@@ -37,19 +37,19 @@ public class DataTransferAspect {
 
             // 执行 Controller 逻辑
             Object value = joinPoint.proceed(args);
-            responseModel = ResponseUtils.responseModel(value);
+            responseDTO = ResponseUtils.responseDTO(value);
 
             // 响应日志
-            responseLog(responseModel, request);
+            responseLog(responseDTO, request);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
 
-            responseModel = ResponseUtils.error(throwable);
+            responseDTO = ResponseUtils.error(throwable);
 
             // 异常日志
-            exceptionLog(responseModel, request);
+            exceptionLog(responseDTO, request);
         }
-        return responseModel;
+        return responseDTO;
     }
 
     /**
@@ -70,15 +70,15 @@ public class DataTransferAspect {
     /**
      * 打印日志(响应)
      *
-     * @param responseModel 响应报文
+     * @param responseDTO 响应报文
      * @param request       请求
      */
-    private void responseLog(ResponseModel responseModel, HttpServletRequest request) {
+    private void responseLog(ResponseDTO responseDTO, HttpServletRequest request) {
         long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
         long endTime = System.currentTimeMillis(); // 结束时间
 
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());
-        LogUtils.i("== response ===>>>> {}", JSONUtils.toJSONString(responseModel));
+        LogUtils.i("== response ===>>>> {}", JSONUtils.toJSONString(responseDTO));
         LogUtils.i("== network cost time ===>>>> {}", (endTime - beginTime));
 
         startTimeThreadLocal.remove();
@@ -87,15 +87,15 @@ public class DataTransferAspect {
     /**
      * 打印日志(异常)
      *
-     * @param responseModel 响应实体
+     * @param responseDTO 响应实体
      * @param request       请求
      */
-    private void exceptionLog(ResponseModel responseModel, HttpServletRequest request) {
+    private void exceptionLog(ResponseDTO responseDTO, HttpServletRequest request) {
         long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
         long endTime = System.currentTimeMillis(); // 结束时间
 
         LogUtils.e("== url ===>>>> {}", request.getRequestURI());
-        LogUtils.e("== exception ===>>>> {}", JSONUtils.toJSONString(responseModel));
+        LogUtils.e("== exception ===>>>> {}", JSONUtils.toJSONString(responseDTO));
         LogUtils.i("== network error cost time ===>>>> {}", (endTime - beginTime));
 
         startTimeThreadLocal.remove();
