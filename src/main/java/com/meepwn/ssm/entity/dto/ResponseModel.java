@@ -8,7 +8,7 @@ public class ResponseModel {
     private String retMsg;
     private Object data;
     private List dataList;
-    private Exception exception;
+    private Throwable exception;
 
     public ResponseModel(Builder builder) {
         retCode = builder.retCode;
@@ -23,7 +23,7 @@ public class ResponseModel {
         private String retMsg;
         private Object data;
         private List dataList;
-        private Exception exception;
+        private Throwable exception;
 
         public Builder setRetCode(String retCode) {
             this.retCode = retCode;
@@ -45,7 +45,7 @@ public class ResponseModel {
             return this;
         }
 
-        public Builder setException(Exception exception) {
+        public Builder setException(Throwable exception) {
             this.exception = exception;
             return this;
         }
@@ -72,7 +72,7 @@ public class ResponseModel {
         return dataList;
     }
 
-    public Exception getException() {
+    public Throwable getException() {
         return exception;
     }
 

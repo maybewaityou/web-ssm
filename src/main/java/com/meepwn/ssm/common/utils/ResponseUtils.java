@@ -13,7 +13,31 @@ import java.util.Objects;
 
 public class ResponseUtils {
 
-    public static final String JSON_CONTENT_TYPE = "application/json";
+    public static final String JSON_CONTENT_TYPE = "application/responseModel";
+
+    /**
+     * 响应数据
+     *
+     * @param value 返回结果
+     * @param args  可选参数
+     * @return 响应数据
+     */
+    public static ResponseModel responseModel(Object value, Object... args) {
+        if (value instanceof List) {
+            return responseListModel(null, (List) value, args);
+        } else {
+            return responseModel(null, value, args);
+        }
+    }
+
+    public static ResponseModel error(Throwable exception) {
+        ResponseModel.Builder builder = (ResponseModel.Builder) BeanFactory.newInstance(ResponseModel.Builder.class);
+        return Objects.requireNonNull(builder)
+                .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
+                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
+                .setException(exception)
+                .build();
+    }
 
     /**
      * 响应数据
@@ -27,7 +51,8 @@ public class ResponseUtils {
         ResponseModel.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
         ResponseModel responseModel = builder.setData(value).build();
 
-        response.setContentType(JSON_CONTENT_TYPE);
+        if (response != null)
+            response.setContentType(JSON_CONTENT_TYPE);
 
         return responseModel;
     }
@@ -40,7 +65,7 @@ public class ResponseUtils {
      * @param args     可选参数
      * @return 响应数据
      */
-    public static ResponseModel responseModel(ServletResponse response, List list, Object... args) {
+    public static ResponseModel responseListModel(ServletResponse response, List list, Object... args) {
         ResponseModel.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
         ResponseModel responseModel;
         if (list.size() != 0) {
@@ -49,7 +74,8 @@ public class ResponseUtils {
             responseModel = builder.build();
         }
 
-        response.setContentType(JSON_CONTENT_TYPE);
+        if (response != null)
+            response.setContentType(JSON_CONTENT_TYPE);
 
         return responseModel;
     }
