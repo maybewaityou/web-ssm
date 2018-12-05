@@ -23,10 +23,10 @@ public class DataTransferAspect {
     private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
 
     @Pointcut("execution(* com.meepwn.ssm.controller.*.*(..))")
-    public void responseAspectMethod() {
+    public void dataTransferAspectMethod() {
     }
 
-    @Around("responseAspectMethod()")
+    @Around("dataTransferAspectMethod()")
     public ResponseDTO responseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
