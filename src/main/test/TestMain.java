@@ -1,6 +1,6 @@
 import com.meepwn.ssm.common.utils.LogUtils;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
-import com.meepwn.ssm.entity.pojo.User;
+import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

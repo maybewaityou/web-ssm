@@ -3,7 +3,7 @@ package com.meepwn.ssm.dao.impl;
 import com.meepwn.ssm.dao.BaseDao;
 import com.meepwn.ssm.dao.UserDao;
 import com.meepwn.ssm.mapper.UserMapper;
-import com.meepwn.ssm.entity.pojo.User;
+import com.meepwn.ssm.entity.po.User;
 
 import java.util.List;
 

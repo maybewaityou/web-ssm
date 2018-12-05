@@ -21,6 +21,6 @@
     </settings>
     <!-- 别名 -->
     <typeAliases>
-        <package name="com.meepwn.ssm.entity.pojo"/>
+        <package name="com.meepwn.ssm.entity.po"/>
     </typeAliases>
 </configuration>

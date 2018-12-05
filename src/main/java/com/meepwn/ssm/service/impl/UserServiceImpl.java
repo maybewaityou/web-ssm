@@ -1,7 +1,7 @@
 package com.meepwn.ssm.service.impl;
 
 import com.meepwn.ssm.dao.UserDao;
-import com.meepwn.ssm.entity.pojo.User;
+import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.stereotype.Service;
 
