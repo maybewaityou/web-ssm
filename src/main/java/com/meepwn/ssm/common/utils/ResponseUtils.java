@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
 import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
-import com.meepwn.ssm.entity.dto.ResponseModel;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 
 import javax.servlet.ServletResponse;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class ResponseUtils {
 
-    public static final String JSON_CONTENT_TYPE = "application/responseModel";
+    public static final String JSON_CONTENT_TYPE = "application/json";
 
     /**
      * 响应数据
@@ -22,7 +22,7 @@ public class ResponseUtils {
      * @param args  可选参数
      * @return 响应数据
      */
-    public static ResponseModel responseModel(Object value, Object... args) {
+    public static ResponseDTO responseDTO(Object value, Object... args) {
         if (value instanceof List) {
             return responseListModel(null, (List) value, args);
         } else {
@@ -30,8 +30,8 @@ public class ResponseUtils {
         }
     }
 
-    public static ResponseModel error(Throwable exception) {
-        ResponseModel.Builder builder = (ResponseModel.Builder) BeanFactory.newInstance(ResponseModel.Builder.class);
+    public static ResponseDTO error(Throwable exception) {
+        ResponseDTO.Builder builder = (ResponseDTO.Builder) BeanFactory.newInstance(ResponseDTO.Builder.class);
         return Objects.requireNonNull(builder)
                 .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
                 .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
@@ -47,14 +47,14 @@ public class ResponseUtils {
      * @param args     可选参数
      * @return 响应数据
      */
-    public static ResponseModel responseModel(ServletResponse response, Object value, Object... args) {
-        ResponseModel.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
-        ResponseModel responseModel = builder.setData(value).build();
+    public static ResponseDTO responseModel(ServletResponse response, Object value, Object... args) {
+        ResponseDTO.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
+        ResponseDTO responseDTO = builder.setData(value).build();
 
         if (response != null)
             response.setContentType(JSON_CONTENT_TYPE);
 
-        return responseModel;
+        return responseDTO;
     }
 
     /**
@@ -65,19 +65,19 @@ public class ResponseUtils {
      * @param args     可选参数
      * @return 响应数据
      */
-    public static ResponseModel responseListModel(ServletResponse response, List list, Object... args) {
-        ResponseModel.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
-        ResponseModel responseModel;
+    public static ResponseDTO responseListModel(ServletResponse response, List list, Object... args) {
+        ResponseDTO.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
+        ResponseDTO responseDTO;
         if (list.size() != 0) {
-            responseModel = builder.setDataList(list).build();
+            responseDTO = builder.setDataList(list).build();
         } else {
-            responseModel = builder.build();
+            responseDTO = builder.build();
         }
 
         if (response != null)
             response.setContentType(JSON_CONTENT_TYPE);
 
-        return responseModel;
+        return responseDTO;
     }
 
     /**
@@ -89,9 +89,9 @@ public class ResponseUtils {
      * @return 响应数据
      */
     public static String responseString(ServletResponse response, Object value, Object... args) throws IOException {
-        ResponseModel responseModel = responseModel(response, value, args);
+        ResponseDTO responseDTO = responseModel(response, value, args);
         ObjectMapper mapper = JSONMapperFactory.newInstance();
-        return mapper.writeValueAsString(responseModel);
+        return mapper.writeValueAsString(responseDTO);
     }
 
     /**
@@ -103,17 +103,17 @@ public class ResponseUtils {
      * @return 响应数据
      */
     public static String responseString(ServletResponse response, List list, Object... args) throws IOException {
-        ResponseModel responseModel = responseModel(response, list, args);
+        ResponseDTO responseDTO = responseModel(response, list, args);
         ObjectMapper mapper = JSONMapperFactory.newInstance();
-        return mapper.writeValueAsString(responseModel);
+        return mapper.writeValueAsString(responseDTO);
     }
 
     /**
      * @param b           判断条件
      * @param failureEnum 报错枚举
      */
-    private static ResponseModel.Builder setResponseInfo(boolean b, ResponseEnum failureEnum) {
-        ResponseModel.Builder builder = (ResponseModel.Builder) BeanFactory.newInstance(ResponseModel.Builder.class);
+    private static ResponseDTO.Builder setResponseInfo(boolean b, ResponseEnum failureEnum) {
+        ResponseDTO.Builder builder = (ResponseDTO.Builder) BeanFactory.newInstance(ResponseDTO.Builder.class);
         if (b) {
             return Objects.requireNonNull(builder).setRetCode(failureEnum.getRetCode())
                     .setRetMsg(failureEnum.getRetMsg());
