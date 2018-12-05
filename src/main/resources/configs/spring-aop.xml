@@ -2,15 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/aop
-            http://www.springframework.org/schema/aop/spring-aop.xsd">
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- 开启 AOP 注解配置 -->
     <aop:aspectj-autoproxy/>
 
-    <bean id="dataTransferAspect" class="com.meepwn.ssm.enhance.aop.DataTransferAspect"/>
-    <bean id="daoAspect" class="com.meepwn.ssm.enhance.aop.DaoAspect"/>
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.meepwn.ssm.controller"/>
 
 </beans>
