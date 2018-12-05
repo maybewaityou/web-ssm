@@ -14,7 +14,6 @@ public class DaoAspect {
 
     @Around("daoAspectJMethod()")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint) {
-        System.out.println("======= DaoAspect");
         // 定义返回值
         Object result = null;
         String methodName = joinPoint.getSignature().getName();

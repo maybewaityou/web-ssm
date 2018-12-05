@@ -10,7 +10,7 @@
 
     <aop:aspectj-autoproxy/>
 
-    <bean id="responseAspect" class="com.meepwn.ssm.enhance.aop.ResponseAspect"/>
+    <bean id="dataTransferAspect" class="com.meepwn.ssm.enhance.aop.DataTransferAspect"/>
     <bean id="daoAspect" class="com.meepwn.ssm.enhance.aop.DaoAspect"/>
 
 </beans>

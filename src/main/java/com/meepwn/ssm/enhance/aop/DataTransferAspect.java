@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Aspect
-public class ResponseAspect {
+public class DataTransferAspect {
 
     private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
 
@@ -28,8 +28,6 @@ public class ResponseAspect {
 
     @Around("responseAspectMethod()")
     public ResponseModel responseModel(ProceedingJoinPoint joinPoint) {
-        System.out.println("======= ResponseAspect");
-
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
         ResponseModel responseModel;
