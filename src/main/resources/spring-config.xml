@@ -5,6 +5,7 @@
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="classpath:configs/spring-aop.xml"/>
     <import resource="classpath:configs/spring-dao.xml"/>
     <import resource="classpath:configs/spring-mybatis.xml"/>
     <import resource="classpath:configs/spring-mvc.xml"/>
