@@ -48,7 +48,6 @@
     <!-- 静态资源默认 servlet 配置 -->
     <mvc:default-servlet-handler/>
 
-    <bean id="springContext" class="com.meepwn.ssm.application.SpringContext"/>
     <bean class="com.meepwn.ssm.enhance.exception.ExceptionHandler"/>
 
 </beans>
