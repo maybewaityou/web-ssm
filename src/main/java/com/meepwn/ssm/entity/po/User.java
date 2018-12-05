@@ -1,5 +1,8 @@
 package com.meepwn.ssm.entity.po;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
 
     private int id;
