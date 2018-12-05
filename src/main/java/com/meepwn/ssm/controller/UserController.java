@@ -25,7 +25,6 @@ public class UserController {
 
     @POST("/findAllUsers.do")
     public Object findAllUsers() {
-        //        return ResponseUtils.responseModel(response, users);
         return userService.findAllUsers();
     }
 
