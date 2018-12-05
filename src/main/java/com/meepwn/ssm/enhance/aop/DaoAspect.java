@@ -19,11 +19,9 @@ public class DaoAspect {
         String methodName = joinPoint.getSignature().getName();
         if (methodName.contains("Tx")) {
             try {
-                // 获取方法执行所需的参数
-                Object[] args = joinPoint.getArgs();
                 // TODO 前置通知, 可开启事务: beginTransaction();
                 // 执行方法
-                result = joinPoint.proceed(args);
+                result = joinPoint.proceed(joinPoint.getArgs());
                 // TODO 后置通知, 可提交事务: commit();
             } catch (Throwable throwable) {
                 // TODO 异常通知, 回滚事务: rollback();
@@ -33,9 +31,15 @@ public class DaoAspect {
             }
         } else {
             try {
+                // TODO 前置通知
+                // 执行方法
                 result = joinPoint.proceed(joinPoint.getArgs());
+                // TODO 后置通知
             } catch (Throwable throwable) {
+                // TODO 异常通知
                 throwable.printStackTrace();
+            } finally {
+                // TODO 最终通知
             }
         }
         return result;
