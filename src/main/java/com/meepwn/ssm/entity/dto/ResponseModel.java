@@ -1,4 +1,4 @@
-package com.meepwn.ssm.pojo.response;
+package com.meepwn.ssm.entity.dto;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import com.meepwn.ssm.common.utils.LogUtils;
 import com.meepwn.ssm.common.utils.ResponseUtils;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
 import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
-import com.meepwn.ssm.pojo.response.ResponseModel;
+import com.meepwn.ssm.entity.dto.ResponseModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 

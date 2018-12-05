@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
 import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
-import com.meepwn.ssm.pojo.response.ResponseModel;
+import com.meepwn.ssm.entity.dto.ResponseModel;
 
 import javax.servlet.ServletResponse;
 import java.io.IOException;

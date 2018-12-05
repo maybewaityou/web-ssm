@@ -1,6 +1,6 @@
 package com.meepwn.ssm.mapper;
 
-import com.meepwn.ssm.pojo.User;
+import com.meepwn.ssm.entity.pojo.User;
 
 import java.util.List;
 

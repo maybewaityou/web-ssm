@@ -2,8 +2,8 @@ package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.common.utils.ResponseUtils;
 import com.meepwn.ssm.enhance.annotation.method.POST;
-import com.meepwn.ssm.pojo.User;
-import com.meepwn.ssm.pojo.response.ResponseModel;
+import com.meepwn.ssm.entity.dto.ResponseModel;
+import com.meepwn.ssm.entity.pojo.User;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Resource

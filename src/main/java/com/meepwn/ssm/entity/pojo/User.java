@@ -1,4 +1,4 @@
-package com.meepwn.ssm.pojo;
+package com.meepwn.ssm.entity.pojo;
 
 public class User {
 
