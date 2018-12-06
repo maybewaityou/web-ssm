@@ -1,7 +1,6 @@
 package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.enhance.annotation.method.POST;
-import com.meepwn.ssm.entity.dto.ResponseDTO;
 import com.meepwn.ssm.entity.dto.UserRequestDTO;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @POST("/throwsEx.do")
-    public ResponseDTO throwsEx() {
+    public Object throwsEx() {
         throw new RuntimeException("报错了...");
     }
 
