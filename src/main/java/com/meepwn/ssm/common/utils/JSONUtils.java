@@ -6,9 +6,6 @@ import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
 
 public class JSONUtils {
 
-    private JSONUtils() {
-    }
-
     /**
      * 将实体转为 JSON 字符串
      *
@@ -23,6 +20,9 @@ public class JSONUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private JSONUtils() {
     }
 
 }
