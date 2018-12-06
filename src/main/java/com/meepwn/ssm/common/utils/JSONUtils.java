@@ -6,8 +6,12 @@ import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
 
 public class JSONUtils {
 
+    private JSONUtils() {
+    }
+
     /**
      * 将实体转为 JSON 字符串
+     *
      * @param object 实体
      * @return JSON 字符串
      */
