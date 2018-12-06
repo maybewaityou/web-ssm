@@ -1,4 +1,4 @@
-package proxy;
+package com.meepwn.test.proxy;
 
 import com.meepwn.ssm.enhance.factory.proxy.Interceptor;
 

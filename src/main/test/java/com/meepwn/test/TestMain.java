@@ -2,14 +2,14 @@ import com.meepwn.ssm.common.utils.LogUtils;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
+import com.meepwn.test.proxy.DaoTest;
+import com.meepwn.test.proxy.UserDaoTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import proxy.DaoTest;
-import proxy.UserDaoTest;
 
 import javax.annotation.Resource;
 import java.util.List;

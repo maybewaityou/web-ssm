@@ -1,4 +1,4 @@
-package proxy;
+package com.meepwn.test.proxy;
 
 public interface DaoTest {
 
