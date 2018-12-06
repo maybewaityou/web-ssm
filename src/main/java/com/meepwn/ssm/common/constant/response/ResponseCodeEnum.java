@@ -16,10 +16,6 @@ public enum ResponseCodeEnum {
         return retCode;
     }
 
-    public void setRetCode(String retCode) {
-        this.retCode = retCode;
-    }
-
     @Override
     public String toString() {
         return "ResponseCodeEnum{" +
