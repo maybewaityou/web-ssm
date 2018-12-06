@@ -16,7 +16,7 @@ public class UserRequestValidator implements Validator {
         UserRequestDTO target = (UserRequestDTO) o;
         int id = target.getId();
         if (id < 0) {
-            errors.rejectValue("id", "aaaa","用户 id 不能小于 0.");
+            errors.rejectValue("id", "","用户 id 不能小于 0.");
         }
     }
 
