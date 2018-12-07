@@ -4,6 +4,9 @@ import com.meepwn.ssm.entity.dto.UserRequestDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * @author MeePwn
+ */
 public class UserRequestValidator implements Validator {
 
     @Override
@@ -14,9 +17,11 @@ public class UserRequestValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         UserRequestDTO target = (UserRequestDTO) o;
-        int id = target.getId();
-        if (id < 0) {
-            errors.rejectValue("id", "","用户 id 不能小于 0.");
+        Integer id = target.getId();
+        if (id == null) {
+            errors.rejectValue("id", "", "参数不存在.");
+        } else if (id < 0) {
+            errors.rejectValue("id", "", "不能小于 0.");
         }
     }
 

@@ -2,6 +2,9 @@ package com.meepwn.ssm.entity.dto;
 
 import java.util.List;
 
+/**
+ * @author MeePwn
+ */
 public class ResponseDTO {
 
     private String retCode;
