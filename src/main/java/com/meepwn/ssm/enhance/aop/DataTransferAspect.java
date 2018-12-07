@@ -1,6 +1,6 @@
 package com.meepwn.ssm.enhance.aop;
 
-import com.meepwn.ssm.common.util.JSONUtils;
+import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
@@ -110,7 +110,7 @@ public class DataTransferAspect {
         START_TIME_THREAD_LOCAL.set(startTime);
 
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
-        LogUtils.i(PARAMS_EL_STRING, JSONUtils.toJSONString(params));
+        LogUtils.i(PARAMS_EL_STRING, JsonUtils.toJSONString(params));
     }
 
     /**
@@ -131,7 +131,7 @@ public class DataTransferAspect {
         long endTime = System.currentTimeMillis();
 
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
-        LogUtils.i(RESPONSE_EL_STRING, JSONUtils.toJSONString(responseDTO));
+        LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(responseDTO));
         LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();
@@ -155,7 +155,7 @@ public class DataTransferAspect {
         long endTime = System.currentTimeMillis();
 
         LogUtils.e(URL_EL_STRING, request.getRequestURI());
-        LogUtils.e(EXCEPTION_EL_STRING, JSONUtils.toJSONString(responseDTO));
+        LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(responseDTO));
         LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();

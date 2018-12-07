@@ -2,12 +2,12 @@ package com.meepwn.ssm.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
+import com.meepwn.ssm.enhance.factory.json.JsonMapperFactory;
 
 /**
  * @author MeePwn
  */
-public class JSONUtils {
+public class JsonUtils {
 
     /**
      * 将实体转为 JSON 字符串
@@ -16,7 +16,7 @@ public class JSONUtils {
      * @return JSON 字符串
      */
     public static String toJSONString(Object object) {
-        ObjectMapper mapper = JSONMapperFactory.newInstance();
+        ObjectMapper mapper = JsonMapperFactory.newInstance();
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
@@ -25,7 +25,7 @@ public class JSONUtils {
         return "";
     }
 
-    private JSONUtils() {
+    private JsonUtils() {
     }
 
 }

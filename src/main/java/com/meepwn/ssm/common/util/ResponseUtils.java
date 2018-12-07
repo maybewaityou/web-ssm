@@ -3,7 +3,7 @@ package com.meepwn.ssm.common.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
-import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
+import com.meepwn.ssm.enhance.factory.json.JsonMapperFactory;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
 
 import javax.servlet.ServletResponse;
@@ -95,7 +95,7 @@ public class ResponseUtils {
      */
     public static String responseString(ServletResponse response, Object value, Object... args) throws IOException {
         ResponseDTO responseDTO = responseModel(response, value, args);
-        ObjectMapper mapper = JSONMapperFactory.newInstance();
+        ObjectMapper mapper = JsonMapperFactory.newInstance();
         return mapper.writeValueAsString(responseDTO);
     }
 
@@ -109,7 +109,7 @@ public class ResponseUtils {
      */
     public static String responseString(ServletResponse response, List list, Object... args) throws IOException {
         ResponseDTO responseDTO = responseModel(response, list, args);
-        ObjectMapper mapper = JSONMapperFactory.newInstance();
+        ObjectMapper mapper = JsonMapperFactory.newInstance();
         return mapper.writeValueAsString(responseDTO);
     }
 

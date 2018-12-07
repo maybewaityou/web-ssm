@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 /**
  * @author MeePwn
  */
-public class JSONMapperFactory {
+public class JsonMapperFactory {
 
     public static ObjectMapper newInstance() {
         return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
@@ -16,7 +16,7 @@ public class JSONMapperFactory {
         return new ObjectMapper().disable(serializationFeature);
     }
 
-    private JSONMapperFactory() {
+    private JsonMapperFactory() {
     }
 
 }

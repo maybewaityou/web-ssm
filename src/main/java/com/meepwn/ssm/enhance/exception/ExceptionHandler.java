@@ -1,6 +1,6 @@
 package com.meepwn.ssm.enhance.exception;
 
-import com.meepwn.ssm.common.util.JSONUtils;
+import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
@@ -20,7 +20,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
             ResponseDTO responseDTO = ResponseUtils.error(ex);
-            String jsonString = JSONUtils.toJSONString(responseDTO);
+            String jsonString = JsonUtils.toJSONString(responseDTO);
 
             LogUtils.e("== url ===>>>> {}", request.getRequestURI());
             LogUtils.e("== exception ===>>>> {}", jsonString);

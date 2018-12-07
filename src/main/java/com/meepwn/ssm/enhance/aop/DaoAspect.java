@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DaoAspect {
 
+    private static final String TRANSACTIONAL_SYMBOL = "Tx";
+
     @Pointcut("execution(* com.meepwn.ssm.dao.impl.*DaoImpl.*(..))")
     public void daoAspectJMethod() {
     }
@@ -23,7 +25,7 @@ public class DaoAspect {
         // 定义返回值
         Object result = null;
         String methodName = joinPoint.getSignature().getName();
-        if (methodName.contains("Tx")) {
+        if (methodName.contains(TRANSACTIONAL_SYMBOL)) {
             try {
                 // TODO 前置通知, 可开启事务: beginTransaction();
                 // 执行方法
