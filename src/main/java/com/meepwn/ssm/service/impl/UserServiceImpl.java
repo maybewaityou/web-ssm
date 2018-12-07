@@ -20,24 +20,38 @@ public class UserServiceImpl implements UserService {
     @Resource
     private RedisUtils redisUtils;
 
+    private static final String KEY_PREFIX = "user_";
+
     @Override
     public void insertUser(User user) {
         userDao.insertUser(user);
+        String key = KEY_PREFIX + user.getId();
+        if (!redisUtils.exists(key)) {
+            redisUtils.set(key, user);
+        }
     }
 
     @Override
     public void deleteUser(int id) {
         userDao.deleteUser(id);
+        String key = KEY_PREFIX + id;
+        if (redisUtils.exists(key)) {
+            redisUtils.remove(key);
+        }
     }
 
     @Override
     public void updateUser(User user) {
         userDao.updateUser(user);
+        String key = KEY_PREFIX + user.getId();
+        if (redisUtils.exists(key)) {
+            redisUtils.set(key, user);
+        }
     }
 
     @Override
     public User getUser(int id) {
-        String key = "user_" + id;
+        String key = KEY_PREFIX + id;
         if (redisUtils.exists(key)) {
             return (User) redisUtils.get(key);
         }
