@@ -19,12 +19,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
+/**
+ * @author MeePwn
+ */
 @Aspect
 @Component
 public class DataTransferAspect {
 
     private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
 
+    /**
+     * 注册切面
+     */
     @Pointcut("execution(* com.meepwn.ssm.controller.*.*(..))")
     public void dataTransferAspectMethod() {
     }
@@ -94,7 +100,8 @@ public class DataTransferAspect {
 
         Object params = args.length > 0 ? args[0] : new Object();
         long startTime = System.currentTimeMillis();
-        startTimeThreadLocal.set(startTime); // 线程绑定变量 (该数据只有当前请求的线程可见)
+        // 线程绑定变量 (该数据只有当前请求的线程可见)
+        startTimeThreadLocal.set(startTime);
 
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());
         LogUtils.i("== params ===>>>> {}", JSONUtils.toJSONString(params));
@@ -112,8 +119,10 @@ public class DataTransferAspect {
             return;
         }
 
-        long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
-        long endTime = System.currentTimeMillis(); // 结束时间
+        // 得到线程绑定的局部变量（开始时间）
+        long beginTime = startTimeThreadLocal.get();
+        // 结束时间
+        long endTime = System.currentTimeMillis();
 
         LogUtils.i("== url ===>>>> {}", request.getRequestURI());
         LogUtils.i("== response ===>>>> {}", JSONUtils.toJSONString(responseDTO));
@@ -134,8 +143,10 @@ public class DataTransferAspect {
             return;
         }
 
-        long beginTime = startTimeThreadLocal.get(); // 得到线程绑定的局部变量（开始时间）
-        long endTime = System.currentTimeMillis(); // 结束时间
+        // 得到线程绑定的局部变量（开始时间）
+        long beginTime = startTimeThreadLocal.get();
+        // 结束时间
+        long endTime = System.currentTimeMillis();
 
         LogUtils.e("== url ===>>>> {}", request.getRequestURI());
         LogUtils.e("== exception ===>>>> {}", JSONUtils.toJSONString(responseDTO));

@@ -51,8 +51,9 @@ public class ResponseUtils {
         ResponseDTO.Builder builder = setResponseInfo(value == null, ResponseEnum.QUERY_USER_SUCCESS);
         ResponseDTO responseDTO = builder.setData(value).build();
 
-        if (response != null)
+        if (response != null) {
             response.setContentType(JSON_CONTENT_TYPE);
+        }
 
         return responseDTO;
     }
@@ -66,16 +67,17 @@ public class ResponseUtils {
      * @return 响应数据
      */
     public static ResponseDTO responseListModel(ServletResponse response, List list, Object... args) {
-        ResponseDTO.Builder builder = setResponseInfo(list.size() == 0, ResponseEnum.QUERY_USERS_SUCCESS);
+        ResponseDTO.Builder builder = setResponseInfo(list.isEmpty(), ResponseEnum.QUERY_USERS_SUCCESS);
         ResponseDTO responseDTO;
-        if (list.size() != 0) {
-            responseDTO = builder.setDataList(list).build();
-        } else {
+        if (list.isEmpty()) {
             responseDTO = builder.build();
+        } else {
+            responseDTO = builder.setDataList(list).build();
         }
 
-        if (response != null)
+        if (response != null) {
             response.setContentType(JSON_CONTENT_TYPE);
+        }
 
         return responseDTO;
     }
@@ -121,6 +123,9 @@ public class ResponseUtils {
             return Objects.requireNonNull(builder).setRetCode(ResponseEnum.QUERY_SUCCESS.getRetCode())
                     .setRetMsg(ResponseEnum.QUERY_SUCCESS.getRetMsg());
         }
+    }
+
+    private ResponseUtils() {
     }
 
 }

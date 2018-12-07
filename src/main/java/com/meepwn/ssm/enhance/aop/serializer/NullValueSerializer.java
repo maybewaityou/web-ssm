@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
+/**
+ * @author MeePwn
+ */
 public class NullValueSerializer extends JsonSerializer<Object> {
 
     @Override

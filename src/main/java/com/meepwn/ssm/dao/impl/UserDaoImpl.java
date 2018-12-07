@@ -7,6 +7,9 @@ import com.meepwn.ssm.entity.po.User;
 
 import java.util.List;
 
+/**
+ * @author MeePwn
+ */
 public class UserDaoImpl extends BaseDao implements UserDao {
 
     private UserMapper userMapper;

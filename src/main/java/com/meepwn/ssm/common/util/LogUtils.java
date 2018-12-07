@@ -60,4 +60,7 @@ public class LogUtils {
         return tag;
     }
 
+    private LogUtils() {
+    }
+
 }
