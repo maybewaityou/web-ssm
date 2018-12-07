@@ -28,12 +28,12 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
             response.setContentType(ResponseUtils.JSON_CONTENT_TYPE);
             response.getWriter().write(jsonString);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.e("{}", e);
         } finally {
             try {
                 response.getWriter().close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LogUtils.e("{}", e);
             }
         }
         return null;

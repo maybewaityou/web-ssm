@@ -3,6 +3,9 @@ package com.meepwn.ssm.enhance.factory.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * @author MeePwn
+ */
 public class JSONMapperFactory {
 
     public static ObjectMapper newInstance() {
@@ -11,6 +14,9 @@ public class JSONMapperFactory {
 
     public static ObjectMapper newInstance(SerializationFeature serializationFeature) {
         return new ObjectMapper().disable(serializationFeature);
+    }
+
+    private JSONMapperFactory() {
     }
 
 }

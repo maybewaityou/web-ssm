@@ -4,6 +4,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * @author MeePwn
+ */
 public class BeanProxy implements InvocationHandler {
 
     private Object target;
@@ -14,7 +17,7 @@ public class BeanProxy implements InvocationHandler {
         this.interceptorClass = interceptorClass;
     }
 
-    public static Object bind(Object target, String interceptorClass) {
+    static Object bind(Object target, String interceptorClass) {
         Class cls = target.getClass();
         return Proxy.newProxyInstance(cls.getClassLoader(), cls.getInterfaces(), new BeanProxy(target, interceptorClass));
     }

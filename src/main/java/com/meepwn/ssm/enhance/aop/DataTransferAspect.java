@@ -3,6 +3,7 @@ package com.meepwn.ssm.enhance.aop;
 import com.meepwn.ssm.common.util.JSONUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
+import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -26,7 +27,12 @@ import java.util.Objects;
 @Component
 public class DataTransferAspect {
 
-    private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal StartTime");
+    private static final ThreadLocal<Long> START_TIME_THREAD_LOCAL = new NamedThreadLocal<>("ThreadLocal StartTime");
+    private static final String URL_EL_STRING = "== url ===>>>> {}";
+    private static final String PARAMS_EL_STRING = "== params ===>>>> {}";
+    private static final String RESPONSE_EL_STRING = "== response ===>>>> {}";
+    private static final String EXCEPTION_EL_STRING = "== exception ===>>>> {}";
+    private static final String TIME_EL_STRING = "== network cost time ===>>>> {}";
 
     /**
      * 注册切面
@@ -54,7 +60,7 @@ public class DataTransferAspect {
             // 响应日志
             responseLog(args, responseDTO, request);
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            LogUtils.e("{}", throwable);
 
             responseDTO = ResponseUtils.error(throwable);
 
@@ -79,9 +85,9 @@ public class DataTransferAspect {
             if (errors.hasErrors()) {
                 FieldError error = errors.getFieldError();
                 if (error != null) {
-                    throw new RuntimeException("请求参数错误: " + error.getField() + " " + error.getDefaultMessage());
+                    throw new ParamsPreparedException("请求参数错误: " + error.getField() + " " + error.getDefaultMessage());
                 } else {
-                    throw new RuntimeException("请求参数错误");
+                    throw new ParamsPreparedException("请求参数错误");
                 }
             }
         }
@@ -101,10 +107,10 @@ public class DataTransferAspect {
         Object params = args.length > 0 ? args[0] : new Object();
         long startTime = System.currentTimeMillis();
         // 线程绑定变量 (该数据只有当前请求的线程可见)
-        startTimeThreadLocal.set(startTime);
+        START_TIME_THREAD_LOCAL.set(startTime);
 
-        LogUtils.i("== url ===>>>> {}", request.getRequestURI());
-        LogUtils.i("== params ===>>>> {}", JSONUtils.toJSONString(params));
+        LogUtils.i(URL_EL_STRING, request.getRequestURI());
+        LogUtils.i(PARAMS_EL_STRING, JSONUtils.toJSONString(params));
     }
 
     /**
@@ -120,15 +126,15 @@ public class DataTransferAspect {
         }
 
         // 得到线程绑定的局部变量（开始时间）
-        long beginTime = startTimeThreadLocal.get();
+        long beginTime = START_TIME_THREAD_LOCAL.get();
         // 结束时间
         long endTime = System.currentTimeMillis();
 
-        LogUtils.i("== url ===>>>> {}", request.getRequestURI());
-        LogUtils.i("== response ===>>>> {}", JSONUtils.toJSONString(responseDTO));
-        LogUtils.i("== network cost time ===>>>> {}", (endTime - beginTime));
+        LogUtils.i(URL_EL_STRING, request.getRequestURI());
+        LogUtils.i(RESPONSE_EL_STRING, JSONUtils.toJSONString(responseDTO));
+        LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
-        startTimeThreadLocal.remove();
+        START_TIME_THREAD_LOCAL.remove();
     }
 
     /**
@@ -144,15 +150,15 @@ public class DataTransferAspect {
         }
 
         // 得到线程绑定的局部变量（开始时间）
-        long beginTime = startTimeThreadLocal.get();
+        long beginTime = START_TIME_THREAD_LOCAL.get();
         // 结束时间
         long endTime = System.currentTimeMillis();
 
-        LogUtils.e("== url ===>>>> {}", request.getRequestURI());
-        LogUtils.e("== exception ===>>>> {}", JSONUtils.toJSONString(responseDTO));
-        LogUtils.i("== network error cost time ===>>>> {}", (endTime - beginTime));
+        LogUtils.e(URL_EL_STRING, request.getRequestURI());
+        LogUtils.e(EXCEPTION_EL_STRING, JSONUtils.toJSONString(responseDTO));
+        LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
-        startTimeThreadLocal.remove();
+        START_TIME_THREAD_LOCAL.remove();
     }
 
 }

@@ -1,5 +1,8 @@
 package com.meepwn.ssm.enhance.factory.proxy;
 
+/**
+ * @author MeePwn
+ */
 public class BeanProxyFactory {
 
     public static Object newInstance(Class cls, String interceptorClass) throws IllegalAccessException, InstantiationException {
@@ -16,6 +19,9 @@ public class BeanProxyFactory {
 
     public static Object newInstance(Object target) {
         return BeanProxy.bind(target, null);
+    }
+
+    private BeanProxyFactory(){
     }
 
 }

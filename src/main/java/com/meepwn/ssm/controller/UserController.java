@@ -1,6 +1,7 @@
 package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.enhance.annotation.method.POST;
+import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
 import com.meepwn.ssm.entity.dto.UserRequestDTO;
 import com.meepwn.ssm.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
 
     @POST("/throwsEx.do")
     public Object throwsEx() {
-        throw new RuntimeException("报错了...");
+        throw new ParamsPreparedException("报错了...");
     }
 
 }

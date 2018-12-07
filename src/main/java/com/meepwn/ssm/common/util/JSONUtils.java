@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meepwn.ssm.enhance.factory.json.JSONMapperFactory;
 
+/**
+ * @author MeePwn
+ */
 public class JSONUtils {
 
     /**
@@ -17,7 +20,7 @@ public class JSONUtils {
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            LogUtils.e("{}", e);
         }
         return "";
     }

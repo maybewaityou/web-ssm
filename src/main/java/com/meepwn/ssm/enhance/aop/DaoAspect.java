@@ -1,5 +1,6 @@
 package com.meepwn.ssm.enhance.aop;
 
+import com.meepwn.ssm.common.util.LogUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -30,7 +31,7 @@ public class DaoAspect {
                 // TODO 后置通知, 可提交事务: commit();
             } catch (Throwable throwable) {
                 // TODO 异常通知, 回滚事务: rollback();
-                throwable.printStackTrace();
+                LogUtils.e("{}", throwable);
             } finally {
                 // TODO 最终通知, 释放资源: release();
             }
@@ -42,7 +43,7 @@ public class DaoAspect {
                 // TODO 后置通知
             } catch (Throwable throwable) {
                 // TODO 异常通知
-                throwable.printStackTrace();
+                LogUtils.e("{}", throwable);
             } finally {
                 // TODO 最终通知
             }

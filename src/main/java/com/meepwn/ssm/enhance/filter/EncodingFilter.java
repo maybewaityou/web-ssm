@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author MeePwn
+ */
 public class EncodingFilter implements Filter {
 
     private String encoding = "UTF-8";
@@ -25,8 +28,4 @@ public class EncodingFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }
