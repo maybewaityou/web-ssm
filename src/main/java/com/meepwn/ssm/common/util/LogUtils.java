@@ -3,6 +3,9 @@ package com.meepwn.ssm.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author MeePwn
+ */
 public class LogUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(LogUtils.class);

@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author MeePwn
+ */
 public class ResponseUtils {
 
     public static final String JSON_CONTENT_TYPE = "application/json";
