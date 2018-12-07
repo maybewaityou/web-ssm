@@ -1,5 +1,6 @@
 package com.meepwn.ssm.service.impl;
 
+import com.meepwn.ssm.common.util.RedisUtils;
 import com.meepwn.ssm.dao.UserDao;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
@@ -16,6 +17,8 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
+    @Resource
+    private RedisUtils redisUtils;
 
     @Override
     public void insertUser(User user) {
@@ -34,7 +37,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(int id) {
-        return userDao.getUser(id);
+        String key = "user_" + id;
+        if (redisUtils.exists(key)) {
+            return (User) redisUtils.get(key);
+        }
+        User user = userDao.getUser(id);
+        redisUtils.set(key, user);
+        return user;
     }
 
     @Override
