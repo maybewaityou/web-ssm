@@ -1,6 +1,7 @@
 package com.meepwn.ssm.enhance.validator;
 
 import com.meepwn.ssm.entity.dto.UserRequestDTO;
+import com.meepwn.ssm.entity.po.User;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -11,7 +12,7 @@ public class UserRequestValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return UserRequestDTO.class.equals(aClass);
+        return UserRequestDTO.class.equals(aClass) || User.class.equals(aClass);
     }
 
     @Override
