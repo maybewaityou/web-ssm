@@ -5,7 +5,7 @@ import com.meepwn.ssm.entity.po.User;
 /**
  * @author MeePwn
  */
-public class UserUpdateDTO {
+public class UserUpdateRequestDTO {
 
     private User user;
 
@@ -19,7 +19,7 @@ public class UserUpdateDTO {
 
     @Override
     public String toString() {
-        return "UserUpdateDTO{" +
+        return "UserUpdateRequestDTO{" +
                 "user=" + user +
                 '}';
     }

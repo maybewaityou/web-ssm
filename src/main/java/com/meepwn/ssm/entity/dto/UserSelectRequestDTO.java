@@ -3,7 +3,7 @@ package com.meepwn.ssm.entity.dto;
 /**
  * @author MeePwn
  */
-public class UserSelectDTO {
+public class UserSelectRequestDTO {
 
     private Integer id;
 
@@ -17,7 +17,7 @@ public class UserSelectDTO {
 
     @Override
     public String toString() {
-        return "UserSelectDTO{" +
+        return "UserSelectRequestDTO{" +
                 "id=" + id +
                 '}';
     }

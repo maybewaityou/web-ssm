@@ -3,8 +3,8 @@ package com.meepwn.ssm.controller;
 import com.meepwn.ssm.enhance.annotation.method.POST;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
-import com.meepwn.ssm.entity.dto.UserSelectDTO;
-import com.meepwn.ssm.entity.dto.UserUpdateDTO;
+import com.meepwn.ssm.entity.dto.UserSelectRequestDTO;
+import com.meepwn.ssm.entity.dto.UserUpdateRequestDTO;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
@@ -33,13 +33,13 @@ public class UserController {
     }
 
     @POST("/selectUser.do")
-    public Object selectUser(@Valid @RequestBody UserSelectDTO requestDTO, Errors errors) {
+    public Object selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
         int id = requestDTO.getId();
         return userService.getUser(id);
     }
 
     @POST("/updateUser.do")
-    public Object updateUser(@RequestBody UserUpdateDTO requestDTO) {
+    public Object updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
         User user = requestDTO.getUser();
         userService.updateUser(user);
         return user;
