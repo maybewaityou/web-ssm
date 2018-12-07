@@ -74,6 +74,7 @@ public class RedisUtils {
      */
     public Object get(Serializable key) {
         ValueOperations<Serializable, Object> valueOperations = redisTemplate.opsForValue();
+        LogUtils.d("==== 命中 ====");
         return valueOperations.get(key);
     }
 

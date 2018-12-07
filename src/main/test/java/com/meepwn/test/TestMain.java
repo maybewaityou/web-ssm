@@ -1,6 +1,7 @@
 package com.meepwn.test;
 
 import com.meepwn.ssm.common.util.LogUtils;
+import com.meepwn.ssm.common.util.RedisUtils;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
@@ -24,6 +25,8 @@ public class TestMain {
     private User user;
     @Resource(name = "userService")
     private UserService userService;
+    @Resource
+    private RedisUtils redisUtils;
 
     @Test
     public void testUser() {
@@ -82,6 +85,12 @@ public class TestMain {
     @Test
     public void testLog() {
         LogUtils.d("=====");
+    }
+
+    @Test
+    public void testRedis() {
+        redisUtils.set("name", "张三");
+        System.out.println(redisUtils.get("name"));
     }
 
 }

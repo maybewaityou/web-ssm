@@ -4,7 +4,8 @@ import com.meepwn.ssm.common.util.RedisUtils;
 import com.meepwn.ssm.enhance.annotation.method.POST;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
-import com.meepwn.ssm.entity.dto.UserInputDTO;
+import com.meepwn.ssm.entity.dto.UserRequestDTO;
+import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
@@ -34,9 +35,16 @@ public class UserController {
     }
 
     @POST("/selectUser.do")
-    public Object selectUser(@Valid @RequestBody UserInputDTO inputDTO, Errors errors) {
-        int id = inputDTO.getId();
-        return userService.getUser(id);
+    public Object selectUser(@Valid @RequestBody UserRequestDTO requestDTO, Errors errors) {
+        int id = requestDTO.getId();
+        String key = "user" + id;
+        if (redisUtils.exists(key)) {
+            return redisUtils.get(key);
+        }
+        User user = userService.getUser(id);
+        System.out.println(user);
+        redisUtils.set(key, user);
+        return user;
     }
 
     @POST("/findAllUsers.do")
