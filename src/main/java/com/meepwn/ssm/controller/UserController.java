@@ -38,7 +38,7 @@ public class UserController {
     @POST("/updateUser.do")
     public Object updateUser(@RequestBody User user) {
         userService.updateUser(user);
-        return true;
+        return user;
     }
 
     @POST("/findAllUsers.do")
