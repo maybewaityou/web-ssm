@@ -1,9 +1,10 @@
 package com.meepwn.ssm.controller;
 
+import com.meepwn.ssm.common.util.RedisUtils;
 import com.meepwn.ssm.enhance.annotation.method.POST;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
-import com.meepwn.ssm.entity.dto.UserRequestDTO;
+import com.meepwn.ssm.entity.dto.UserInputDTO;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
@@ -24,6 +25,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private RedisUtils redisUtils;
 
     @InitBinder
     public void initBinder(DataBinder binder) {
@@ -31,8 +34,8 @@ public class UserController {
     }
 
     @POST("/selectUser.do")
-    public Object selectUser(@Valid @RequestBody UserRequestDTO requestDTO, Errors errors) {
-        int id = requestDTO.getId();
+    public Object selectUser(@Valid @RequestBody UserInputDTO inputDTO, Errors errors) {
+        int id = inputDTO.getId();
         return userService.getUser(id);
     }
 

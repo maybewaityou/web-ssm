@@ -1,6 +1,6 @@
 package com.meepwn.ssm.enhance.validator;
 
-import com.meepwn.ssm.entity.dto.UserRequestDTO;
+import com.meepwn.ssm.entity.dto.UserInputDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -11,12 +11,12 @@ public class UserRequestValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return UserRequestDTO.class.equals(aClass);
+        return UserInputDTO.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        UserRequestDTO target = (UserRequestDTO) o;
+        UserInputDTO target = (UserInputDTO) o;
         Integer id = target.getId();
         if (id == null) {
             errors.rejectValue("id", "", "参数不存在.");
