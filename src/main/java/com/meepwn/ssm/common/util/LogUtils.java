@@ -8,33 +8,39 @@ public class LogUtils {
     private static final Logger logger = LoggerFactory.getLogger(LogUtils.class);
 
     public static void d(String msg) {
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug(msg);
+        }
     }
 
     public static void d(String format, Object arg) {
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug(format, arg);
+        }
     }
 
     public static void i(String msg) {
-        if (logger.isInfoEnabled())
+        if (logger.isInfoEnabled()) {
             logger.info(msg);
+        }
     }
 
     public static void i(String format, Object arg) {
-        if (logger.isInfoEnabled())
+        if (logger.isInfoEnabled()) {
             logger.info(format, arg);
+        }
     }
 
     public static void e(String msg) {
-        if (logger.isErrorEnabled())
+        if (logger.isErrorEnabled()) {
             logger.error(msg);
+        }
     }
 
     public static void e(String format, Object arg) {
-        if (logger.isErrorEnabled())
+        if (logger.isErrorEnabled()) {
             logger.error(format, arg);
+        }
     }
 
     private static String defaultTag() {
