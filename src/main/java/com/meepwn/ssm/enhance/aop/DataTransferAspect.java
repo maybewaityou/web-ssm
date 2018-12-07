@@ -1,8 +1,8 @@
 package com.meepwn.ssm.enhance.aop;
 
-import com.meepwn.ssm.common.utils.JSONUtils;
-import com.meepwn.ssm.common.utils.LogUtils;
-import com.meepwn.ssm.common.utils.ResponseUtils;
+import com.meepwn.ssm.common.util.JSONUtils;
+import com.meepwn.ssm.common.util.LogUtils;
+import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

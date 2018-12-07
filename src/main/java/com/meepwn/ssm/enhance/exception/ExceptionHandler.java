@@ -1,8 +1,8 @@
 package com.meepwn.ssm.enhance.exception;
 
-import com.meepwn.ssm.common.utils.JSONUtils;
-import com.meepwn.ssm.common.utils.LogUtils;
-import com.meepwn.ssm.common.utils.ResponseUtils;
+import com.meepwn.ssm.common.util.JSONUtils;
+import com.meepwn.ssm.common.util.LogUtils;
+import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;

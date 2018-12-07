@@ -1,4 +1,4 @@
-package com.meepwn.ssm.common.utils;
+package com.meepwn.ssm.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
