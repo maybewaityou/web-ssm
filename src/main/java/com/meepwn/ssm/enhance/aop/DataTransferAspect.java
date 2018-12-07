@@ -156,7 +156,7 @@ public class DataTransferAspect {
 
         LogUtils.e(URL_EL_STRING, request.getRequestURI());
         LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(responseDTO));
-        LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
+        LogUtils.e(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();
     }
