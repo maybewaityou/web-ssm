@@ -2,6 +2,9 @@ package com.meepwn.ssm.entity.dto;
 
 import com.meepwn.ssm.entity.po.User;
 
+/**
+ * @author MeePwn
+ */
 public class UserUpdateDTO {
 
     private User user;
