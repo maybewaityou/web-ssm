@@ -1,7 +1,7 @@
 package com.meepwn.ssm.enhance.validator;
 
-import com.meepwn.ssm.entity.dto.UserSelectRequestDTO;
-import com.meepwn.ssm.entity.dto.UserUpdateRequestDTO;
+import com.meepwn.ssm.entity.dto.user.UserSelectRequestDTO;
+import com.meepwn.ssm.entity.dto.user.UserUpdateRequestDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

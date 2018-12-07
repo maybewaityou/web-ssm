@@ -1,4 +1,4 @@
-package com.meepwn.ssm.entity.dto;
+package com.meepwn.ssm.entity.dto.user;
 
 /**
  * @author MeePwn
