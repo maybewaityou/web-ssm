@@ -9,5 +9,6 @@
     <import resource="classpath:configs/spring-dao.xml"/>
     <import resource="classpath:configs/spring-mybatis.xml"/>
     <import resource="classpath:configs/spring-mvc.xml"/>
+    <import resource="classpath:configs/spring-redis.xml"/>
 
 </beans>
