@@ -1,7 +1,7 @@
 package com.meepwn.test;
 
 import com.meepwn.ssm.common.util.LogUtils;
-import com.meepwn.ssm.common.util.RedisUtils;
+import com.meepwn.ssm.common.util.RedisManager;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
@@ -26,7 +26,7 @@ public class TestMain {
     @Resource(name = "userService")
     private UserService userService;
     @Resource
-    private RedisUtils redisUtils;
+    private RedisManager redisUtils;
 
     @Test
     public void testUser() {

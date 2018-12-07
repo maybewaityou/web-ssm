@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @author MeePwn
  */
 @Component
-public class RedisUtils {
+public class RedisManager {
 
     @Resource
     private RedisTemplate<Serializable, Object> redisTemplate;

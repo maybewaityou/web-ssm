@@ -1,8 +1,7 @@
 package com.meepwn.ssm.service.impl;
 
-import com.meepwn.ssm.common.util.RedisUtils;
-import com.meepwn.ssm.dao.UserDao;
 import com.meepwn.ssm.entity.po.User;
+import com.meepwn.ssm.manager.UserManager;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -16,58 +15,36 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserDao userDao;
-    @Resource
-    private RedisUtils redisUtils;
-
-    private static final String KEY_PREFIX = "user_";
+    private UserManager userManager;
 
     @Override
     public void insertUser(User user) {
-        userDao.insertUser(user);
-        String key = KEY_PREFIX + user.getId();
-        if (!redisUtils.exists(key)) {
-            redisUtils.set(key, user);
-        }
+        userManager.insertUser(user);
     }
 
     @Override
     public void deleteUser(int id) {
-        userDao.deleteUser(id);
-        String key = KEY_PREFIX + id;
-        if (redisUtils.exists(key)) {
-            redisUtils.remove(key);
-        }
+        userManager.deleteUser(id);
     }
 
     @Override
     public void updateUser(User user) {
-        userDao.updateUser(user);
-        String key = KEY_PREFIX + user.getId();
-        if (redisUtils.exists(key)) {
-            redisUtils.set(key, user);
-        }
+        userManager.updateUser(user);
     }
 
     @Override
     public User getUser(int id) {
-        String key = KEY_PREFIX + id;
-        if (redisUtils.exists(key)) {
-            return (User) redisUtils.get(key);
-        }
-        User user = userDao.getUser(id);
-        redisUtils.set(key, user);
-        return user;
+        return userManager.getUser(id);
     }
 
     @Override
     public List<User> findUsers(String userName) {
-        return userDao.findUsers(userName);
+        return userManager.findUsers(userName);
     }
 
     @Override
     public List<User> findAllUsers() {
-        return userDao.findAllUsers();
+        return userManager.findAllUsers();
     }
 
 }
