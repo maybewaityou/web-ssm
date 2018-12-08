@@ -81,7 +81,7 @@ public class DataTransferAspect {
      * @throws Throwable 执行逻辑中可能抛出的异常
      */
     private OutputDTO proceed(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
-        if (args[0] instanceof DataBinder) {
+        if (args.length > 0 && args[0] instanceof DataBinder) {
             joinPoint.proceed(args);
             return null;
         }
