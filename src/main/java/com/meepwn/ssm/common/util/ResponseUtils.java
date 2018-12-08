@@ -17,6 +17,35 @@ public class ResponseUtils {
     public static final String JSON_CONTENT_TYPE = "application/json";
 
     /**
+     * 组装返回数据
+     *
+     * @param value 返回数据
+     * @param failureEnum 失败枚举
+     * @return 响应数据
+     */
+    public static OutputDTO outputDTO(Object value, ResponseEnum failureEnum) {
+        return outputDTO(value, ResponseEnum.SUCCESS, failureEnum);
+    }
+
+    /**
+     * 组装返回数据
+     *
+     * @param value 返回数据
+     * @param successEnum 成功枚举
+     * @param failureEnum 失败枚举
+     * @return 响应数据
+     */
+    public static OutputDTO outputDTO(Object value, ResponseEnum successEnum, ResponseEnum failureEnum) {
+        ResponseDTO.Builder builder = (ResponseDTO.Builder) BeanFactory.newInstance(ResponseDTO.Builder.class);
+        ResponseDTO responseDTO = Objects.requireNonNull(builder)
+                .setSuccessEnum(successEnum)
+                .setFailureEnum(failureEnum)
+                .setValue(value)
+                .build();
+        return outputDTO(responseDTO);
+    }
+
+    /**
      * 响应数据
      *
      * @param responseDTO 返回结果
