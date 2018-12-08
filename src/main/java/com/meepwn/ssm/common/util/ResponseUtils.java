@@ -54,6 +54,9 @@ public class ResponseUtils {
      */
     public static OutputDTO outputDTO(ResponseDTO responseDTO, Object... args) {
         Object value = responseDTO.getValue();
+        System.out.println("======");
+        System.out.println(value);
+        System.out.println("======");
         if (value instanceof List) {
             return responseListModel(null, responseDTO, args);
         } else {

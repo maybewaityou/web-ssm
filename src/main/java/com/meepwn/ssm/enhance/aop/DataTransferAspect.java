@@ -81,19 +81,20 @@ public class DataTransferAspect {
      * @throws Throwable 执行逻辑中可能抛出的异常
      */
     private OutputDTO proceed(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
-        OutputDTO outputDTO = null;
-        if (args.length == 0 || args[0] instanceof DataBinder) {
+        if (args[0] instanceof DataBinder) {
             joinPoint.proceed(args);
             return null;
         }
 
+        OutputDTO outputDTO = null;
         Object value = joinPoint.proceed(args);
         Signature signature = joinPoint.getSignature();
+        Class cls = joinPoint.getTarget().getClass();
+        Method[] methods = cls.getMethods();
         try {
-            Class cls = joinPoint.getTarget().getClass();
-            for (Method m : cls.getMethods()) {
-                if (m.getName().equals(signature.getName())) {
-                    ResponseAdvice annotation = m.getAnnotation(ResponseAdvice.class);
+            for (Method method : methods) {
+                if (method.getName().equals(signature.getName())) {
+                    ResponseAdvice annotation = method.getAnnotation(ResponseAdvice.class);
                     ResponseEnum successEnum = annotation != null ? annotation.success() : ResponseEnum.SUCCESS;
                     ResponseEnum failureEnum = annotation != null ? annotation.failure() : ResponseEnum.FAILURE;
                     outputDTO = ResponseUtils.outputDTO(value, successEnum, failureEnum);
