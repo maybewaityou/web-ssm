@@ -1,14 +1,20 @@
 package com.meepwn.ssm.entity.dto;
 
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
+import lombok.Getter;
 
 /**
  * @author MeePwn
  */
 public class ResponseDTO {
 
+    @Getter
     private ResponseEnum successEnum;
+
+    @Getter
     private ResponseEnum failureEnum;
+
+    @Getter
     private Object value;
 
     private ResponseDTO(Builder builder) {
@@ -41,18 +47,6 @@ public class ResponseDTO {
             return new ResponseDTO(this);
         }
 
-    }
-
-    public ResponseEnum getSuccessEnum() {
-        return successEnum;
-    }
-
-    public ResponseEnum getFailureEnum() {
-        return failureEnum;
-    }
-
-    public Object getValue() {
-        return value;
     }
 
     @Override

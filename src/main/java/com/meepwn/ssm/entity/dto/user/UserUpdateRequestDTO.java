@@ -1,26 +1,14 @@
 package com.meepwn.ssm.entity.dto.user;
 
 import com.meepwn.ssm.entity.po.User;
+import lombok.Data;
 
 /**
  * @author MeePwn
  */
+@Data
 public class UserUpdateRequestDTO {
 
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "UserUpdateRequestDTO{" +
-                "user=" + user +
-                '}';
-    }
 }

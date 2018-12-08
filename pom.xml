@@ -39,6 +39,8 @@
         <!-- log4j 日志包版本号 -->
         <slf4j.version>1.8.0-beta2</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <!-- 注解方式生成 getter && setter 等-->
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <dependencies>
@@ -257,6 +259,16 @@
             <version>5.4.1.Final</version>
         </dependency>
         <!-- 验证器 end -->
+
+        <!-- 注解方式生成 getter && setter 等 start -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 注解方式生成 getter && setter 等 end -->
+
 
         <!-- https://mvnrepository.com/artifact/org.glassfish/javax.el -->
         <dependency>

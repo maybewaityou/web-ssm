@@ -1,5 +1,7 @@
 package com.meepwn.ssm.entity.dto;
 
+import lombok.Getter;
+
 import java.util.List;
 
 /**
@@ -7,10 +9,19 @@ import java.util.List;
  */
 public class OutputDTO {
 
+    @Getter
     private String retCode;
+
+    @Getter
     private String retMsg;
+
+    @Getter
     private Object data;
+
+    @Getter
     private List dataList;
+    
+    @Getter
     private Throwable exception;
 
     public OutputDTO(Builder builder) {
@@ -57,26 +68,6 @@ public class OutputDTO {
             return new OutputDTO(this);
         }
 
-    }
-
-    public String getRetCode() {
-        return retCode;
-    }
-
-    public String getRetMsg() {
-        return retMsg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public List getDataList() {
-        return dataList;
-    }
-
-    public Throwable getException() {
-        return exception;
     }
 
     @Override
