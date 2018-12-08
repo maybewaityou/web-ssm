@@ -1,11 +1,14 @@
 package com.meepwn.ssm.enhance.aop;
 
+import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
+import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.entity.dto.OutputDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -18,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
@@ -78,10 +82,25 @@ public class DataTransferAspect {
      */
     private OutputDTO proceed(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
         OutputDTO outputDTO = null;
-        if (args.length > 0 && args[0] instanceof DataBinder) {
+        if (args.length == 0 || args[0] instanceof DataBinder) {
             joinPoint.proceed(args);
-        } else {
-            outputDTO = (OutputDTO) joinPoint.proceed(args);
+            return null;
+        }
+
+        Object value = joinPoint.proceed(args);
+        Signature signature = joinPoint.getSignature();
+        try {
+            Class cls = joinPoint.getTarget().getClass();
+            for (Method m : cls.getMethods()) {
+                if (m.getName().equals(signature.getName())) {
+                    ResponseAdvice annotation = m.getAnnotation(ResponseAdvice.class);
+                    ResponseEnum successEnum = annotation != null ? annotation.success() : ResponseEnum.SUCCESS;
+                    ResponseEnum failureEnum = annotation != null ? annotation.failure() : ResponseEnum.FAILURE;
+                    outputDTO = ResponseUtils.outputDTO(value, successEnum, failureEnum);
+                }
+            }
+        } catch (Exception e) {
+            LogUtils.e("{}", e);
         }
         return outputDTO;
     }

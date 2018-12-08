@@ -26,9 +26,9 @@ public enum ResponseEnum {
      */
     USER_UPDATE_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "用户信息更新失败"),
     /**
-     * 用户用户列表查询成功
+     * 用户列表为空
      */
-    QUERY_USERS_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
+    USER_LIST_IS_EMPTY(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
 
     /**
      * 接口访问异常

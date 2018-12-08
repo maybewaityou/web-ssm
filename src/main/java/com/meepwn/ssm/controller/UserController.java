@@ -1,11 +1,10 @@
 package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
-import com.meepwn.ssm.common.util.ResponseUtils;
+import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.annotation.method.POST;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
-import com.meepwn.ssm.entity.dto.OutputDTO;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
 import com.meepwn.ssm.entity.dto.user.UserSelectRequestDTO;
 import com.meepwn.ssm.entity.dto.user.UserUpdateRequestDTO;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author MeePwn
@@ -38,23 +36,24 @@ public class UserController {
     }
 
     @POST("/selectUser.do")
-    public OutputDTO selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
+    @ResponseAdvice(failure = ResponseEnum.USER_NOT_EXIST)
+    public Object selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
         int id = requestDTO.getId();
-        User user = userService.getUser(id);
-        return ResponseUtils.outputDTO(user, ResponseEnum.USER_NOT_EXIST);
+        return userService.getUser(id);
     }
 
     @POST("/updateUser.do")
-    public OutputDTO updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
+    @ResponseAdvice(failure = ResponseEnum.USER_UPDATE_FAILURE)
+    public Object updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
         User user = requestDTO.getUser();
         userService.updateUser(user);
-        return ResponseUtils.outputDTO(user, ResponseEnum.USER_UPDATE_FAILURE);
+        return user;
     }
 
     @POST("/findAllUsers.do")
-    public OutputDTO findAllUsers() {
-        List<User> users = userService.findAllUsers();
-        return ResponseUtils.outputDTO(users, ResponseEnum.QUERY_USERS_FAILURE);
+    @ResponseAdvice(failure = ResponseEnum.USER_LIST_IS_EMPTY)
+    public Object findAllUsers() {
+        return userService.findAllUsers();
     }
 
     @POST("/throwsEx.do")
