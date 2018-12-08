@@ -4,7 +4,7 @@ import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
-import com.meepwn.ssm.entity.dto.ResponseDTO;
+import com.meepwn.ssm.entity.dto.OutputDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -42,9 +42,9 @@ public class DataTransferAspect {
     }
 
     @Around("dataTransferAspectMethod()")
-    public ResponseDTO responseModel(ProceedingJoinPoint joinPoint) {
+    public OutputDTO responseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        ResponseDTO responseDTO;
+        OutputDTO outputDTO;
         Object[] args = joinPoint.getArgs();
         try {
             // 请求日志
@@ -54,20 +54,36 @@ public class DataTransferAspect {
             validateParams(args);
 
             // 执行 Controller 逻辑
-            Object value = joinPoint.proceed(args);
-            responseDTO = ResponseUtils.responseDTO(value);
+            outputDTO = proceed(joinPoint, args);
 
             // 响应日志
-            responseLog(args, responseDTO, request);
+            responseLog(args, outputDTO, request);
         } catch (Throwable throwable) {
             LogUtils.e("{}", throwable);
-
-            responseDTO = ResponseUtils.error(throwable);
+            outputDTO = ResponseUtils.error(throwable);
 
             // 异常日志
-            exceptionLog(args, responseDTO, request);
+            exceptionLog(args, outputDTO, request);
         }
-        return responseDTO;
+        return outputDTO;
+    }
+
+    /**
+     * 执行 Controller 逻辑
+     *
+     * @param joinPoint 切面
+     * @param args      参数
+     * @return 返回参数
+     * @throws Throwable 执行逻辑中可能抛出的异常
+     */
+    private OutputDTO proceed(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
+        OutputDTO outputDTO = null;
+        if (args.length > 0 && args[0] instanceof DataBinder) {
+            joinPoint.proceed(args);
+        } else {
+            outputDTO = (OutputDTO) joinPoint.proceed(args);
+        }
+        return outputDTO;
     }
 
     /**
@@ -116,11 +132,11 @@ public class DataTransferAspect {
     /**
      * 打印日志(响应)
      *
-     * @param args        请求参数
-     * @param responseDTO 响应报文
-     * @param request     请求
+     * @param args      请求参数
+     * @param outputDTO 响应报文
+     * @param request   请求
      */
-    private void responseLog(Object[] args, ResponseDTO responseDTO, HttpServletRequest request) {
+    private void responseLog(Object[] args, OutputDTO outputDTO, HttpServletRequest request) {
         if (args.length > 0 && args[0] instanceof DataBinder) {
             return;
         }
@@ -131,7 +147,7 @@ public class DataTransferAspect {
         long endTime = System.currentTimeMillis();
 
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
-        LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(responseDTO));
+        LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(outputDTO));
         LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();
@@ -140,11 +156,11 @@ public class DataTransferAspect {
     /**
      * 打印日志(异常)
      *
-     * @param args        请求参数
-     * @param responseDTO 响应实体
-     * @param request     请求
+     * @param args      请求参数
+     * @param outputDTO 响应实体
+     * @param request   请求
      */
-    private void exceptionLog(Object[] args, ResponseDTO responseDTO, HttpServletRequest request) {
+    private void exceptionLog(Object[] args, OutputDTO outputDTO, HttpServletRequest request) {
         if (args.length > 0 && args[0] instanceof DataBinder) {
             return;
         }
@@ -155,7 +171,7 @@ public class DataTransferAspect {
         long endTime = System.currentTimeMillis();
 
         LogUtils.e(URL_EL_STRING, request.getRequestURI());
-        LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(responseDTO));
+        LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(outputDTO));
         LogUtils.e(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();

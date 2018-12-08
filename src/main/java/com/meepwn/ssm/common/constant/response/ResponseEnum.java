@@ -18,17 +18,17 @@ public enum ResponseEnum {
      */
     QUERY_SUCCESS(ResponseCodeEnum.SUCCESS.getRetCode(), "接口查询成功"),
     /**
-     * 查询失败
+     * 该用户不存在
      */
-    QUERY_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "接口查询失败"),
+    USER_NOT_EXIST(ResponseCodeEnum.FAILURE.getRetCode(), "该用户不存在"),
     /**
-     * 用户查询成功
+     * 用户信息更新失败
      */
-    QUERY_USER_SUCCESS(ResponseCodeEnum.FAILURE.getRetCode(), "该用户不存在"),
+    USER_UPDATE_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "用户信息更新失败"),
     /**
      * 用户用户列表查询成功
      */
-    QUERY_USERS_SUCCESS(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
+    QUERY_USERS_FAILURE(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
 
     /**
      * 接口访问异常

@@ -1,55 +1,39 @@
 package com.meepwn.ssm.entity.dto;
 
-import java.util.List;
+import com.meepwn.ssm.common.constant.response.ResponseEnum;
 
 /**
  * @author MeePwn
  */
 public class ResponseDTO {
 
-    private String retCode;
-    private String retMsg;
-    private Object data;
-    private List dataList;
-    private Throwable exception;
+    private ResponseEnum successEnum;
+    private ResponseEnum failureEnum;
+    private Object value;
 
-    public ResponseDTO(Builder builder) {
-        retCode = builder.retCode;
-        retMsg = builder.retMsg;
-        data = builder.data;
-        dataList = builder.dataList;
-        exception = builder.exception;
+    private ResponseDTO(Builder builder) {
+        this.successEnum = builder.successEnum;
+        this.failureEnum = builder.failureEnum;
+        this.value = builder.value;
     }
 
     public static class Builder {
-        private String retCode;
-        private String retMsg;
-        private Object data;
-        private List dataList;
-        private Throwable exception;
+        private ResponseEnum successEnum;
+        private ResponseEnum failureEnum;
+        private Object value;
 
-        public Builder setRetCode(String retCode) {
-            this.retCode = retCode;
+        public ResponseDTO.Builder setSuccessEnum(ResponseEnum successEnum) {
+            this.successEnum = successEnum;
             return this;
         }
 
-        public Builder setRetMsg(String retMsg) {
-            this.retMsg = retMsg;
+        public ResponseDTO.Builder setFailureEnum(ResponseEnum failureEnum) {
+            this.failureEnum = failureEnum;
             return this;
         }
 
-        public Builder setData(Object data) {
-            this.data = data;
-            return this;
-        }
-
-        public Builder setDataList(List dataList) {
-            this.dataList = dataList;
-            return this;
-        }
-
-        public Builder setException(Throwable exception) {
-            this.exception = exception;
+        public ResponseDTO.Builder setValue(Object value) {
+            this.value = value;
             return this;
         }
 
@@ -59,34 +43,24 @@ public class ResponseDTO {
 
     }
 
-    public String getRetCode() {
-        return retCode;
+    public ResponseEnum getSuccessEnum() {
+        return successEnum;
     }
 
-    public String getRetMsg() {
-        return retMsg;
+    public ResponseEnum getFailureEnum() {
+        return failureEnum;
     }
 
-    public Object getData() {
-        return data;
-    }
-
-    public List getDataList() {
-        return dataList;
-    }
-
-    public Throwable getException() {
-        return exception;
+    public Object getValue() {
+        return value;
     }
 
     @Override
     public String toString() {
         return "ResponseDTO{" +
-                "retCode='" + retCode + '\'' +
-                ", retMsg='" + retMsg + '\'' +
-                ", data=" + data +
-                ", dataList=" + dataList +
-                ", exception=" + exception +
+                "successEnum=" + successEnum +
+                ", failureEnum=" + failureEnum +
+                ", value=" + value +
                 '}';
     }
 }

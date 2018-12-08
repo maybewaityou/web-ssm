@@ -1,8 +1,12 @@
 package com.meepwn.ssm.controller;
 
+import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.annotation.method.POST;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
+import com.meepwn.ssm.enhance.factory.bean.ResponseDTOFactory;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
+import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import com.meepwn.ssm.entity.dto.user.UserSelectRequestDTO;
 import com.meepwn.ssm.entity.dto.user.UserUpdateRequestDTO;
 import com.meepwn.ssm.entity.po.User;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author MeePwn
@@ -33,25 +38,27 @@ public class UserController {
     }
 
     @POST("/selectUser.do")
-    public Object selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
+    public OutputDTO selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
         int id = requestDTO.getId();
-        return userService.getUser(id);
+        User user = userService.getUser(id);
+        return ResponseDTOFactory.newInstance(user, ResponseEnum.USER_NOT_EXIST);
     }
 
     @POST("/updateUser.do")
-    public Object updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
+    public OutputDTO updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
         User user = requestDTO.getUser();
         userService.updateUser(user);
-        return user;
+        return ResponseDTOFactory.newInstance(user, ResponseEnum.USER_UPDATE_FAILURE);
     }
 
     @POST("/findAllUsers.do")
-    public Object findAllUsers() {
-        return userService.findAllUsers();
+    public OutputDTO findAllUsers() {
+        List<User> users = userService.findAllUsers();
+        return ResponseDTOFactory.newInstance(users, ResponseEnum.QUERY_USERS_FAILURE);
     }
 
     @POST("/throwsEx.do")
-    public Object throwsEx() {
+    public ResponseDTO throwsEx() {
         throw new ParamsPreparedException("报错了...");
     }
 
