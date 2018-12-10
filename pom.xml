@@ -41,6 +41,8 @@
         <log4j.version>1.2.17</log4j.version>
         <!-- 注解方式生成 getter && setter 等-->
         <lombok.version>1.18.4</lombok.version>
+        <!-- joda-time 时间日期处理库 -->
+        <joda.version>2.10.1</joda.version>
     </properties>
 
     <dependencies>
@@ -269,6 +271,13 @@
         </dependency>
         <!-- 注解方式生成 getter && setter 等 end -->
 
+        <!-- 日期时间转换 start -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.version}</version>
+        </dependency>
+        <!-- 日期时间转换 end -->
 
         <!-- https://mvnrepository.com/artifact/org.glassfish/javax.el -->
         <dependency>
