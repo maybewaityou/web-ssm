@@ -3,23 +3,40 @@
 <mapper namespace="com.meepwn.ssm.mapper.UserMapper">
 
     <sql id="userColumn">
-      id, user_name, age
+      id, user_name, location, clock_in_time, clock_out_time, delta_time
+    </sql>
+
+    <sql id="userColumnExceptId">
+      user_name, location, clock_in_time, clock_out_time, delta_time
     </sql>
 
     <resultMap id="userResultMap" type="user">
         <id property="id" column="id"/>
         <result property="userName" column="user_name"/>
-        <result property="age" column="age"/>
+        <result property="location" column="location"/>
+        <result property="clockInTime" column="clock_in_time"/>
+        <result property="clockOutTime" column="clock_out_time"/>
+        <result property="deltaTime" column="delta_time"/>
     </resultMap>
 
     <insert id="insertUser" parameterType="user">
-        INSERT INTO t_user(user_name, age) VALUE (#{userName}, #{age})
+        INSERT INTO t_user(
+        <include refid="userColumnExceptId"/>
+        )
+        VALUE
+        (#{userName}, #{location}, #{clockInTime}, #{clockOutTime}, #{deltaTime})
     </insert>
     <delete id="deleteUser" parameterType="int">
         DELETE FROM t_user WHERE id=#{id}
     </delete>
     <update id="updateUser" parameterType="user">
-        UPDATE t_user SET user_name=#{userName}, age=#{age} WHERE id=#{id}
+        UPDATE t_user SET
+            user_name=#{userName},
+            location=#{location},
+            clock_in_time=#{clockInTime},
+            clock_out_time=#{clockOutTime},
+            delta_time=#{deltaTime}
+        WHERE id=#{id}
     </update>
     <select id="getUser" parameterType="int" resultMap="userResultMap">
         SELECT

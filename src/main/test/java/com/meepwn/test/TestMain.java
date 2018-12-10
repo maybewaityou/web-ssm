@@ -42,7 +42,7 @@ public class TestMain {
 
     @Test
     public void testInsertUser() {
-        user.setAge(18);
+//        user.setAge(18);
         user.setUserName("赵六");
         userService.insertUser(user);
     }
@@ -56,7 +56,7 @@ public class TestMain {
     public void testUpdateUser() {
         user.setId(1);
         user.setUserName("张三");
-        user.setAge(19);
+//        user.setAge(19);
         userService.updateUser(user);
     }
 

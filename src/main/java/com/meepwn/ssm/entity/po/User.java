@@ -23,6 +23,11 @@ public class User {
     private String userName;
 
     /**
+     * 位置信息
+     */
+    private String location;
+
+    /**
      * 签到时间
      */
     private Date clockInTime;
