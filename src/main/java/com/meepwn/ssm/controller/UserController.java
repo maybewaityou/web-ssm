@@ -5,9 +5,9 @@ import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
-import com.meepwn.ssm.entity.dto.user.UserRegisterRequestDTO;
-import com.meepwn.ssm.entity.dto.user.UserSelectRequestDTO;
-import com.meepwn.ssm.entity.dto.user.UserUpdateRequestDTO;
+import com.meepwn.ssm.entity.dto.user.UserPanRequestDTO;
+import com.meepwn.ssm.entity.dto.user.UserRequestDTO;
+import com.meepwn.ssm.entity.po.Empty;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
@@ -26,6 +26,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private Empty empty;
 
     @InitBinder
     public void initBinder(DataBinder binder) {
@@ -34,15 +36,15 @@ public class UserController {
 
     @PostMapping("/registerUser.do")
     @ResponseAdvice(failure = ResponseEnum.FAILURE)
-    public Object registerUser(@Valid @RequestBody UserRegisterRequestDTO requestDTO, Errors errors) {
+    public Object registerUser(@Valid @RequestBody UserRequestDTO requestDTO, Errors errors) {
         User user = requestDTO.getUser();
         userService.insertUser(user);
-        return userService.findUsers(user.getUserName());
+        return empty;
     }
 
     @PostMapping("/updateUser.do")
     @ResponseAdvice(failure = ResponseEnum.USER_UPDATE_FAILURE)
-    public Object updateUser(@RequestBody UserUpdateRequestDTO requestDTO) {
+    public Object updateUser(@Valid @RequestBody UserRequestDTO requestDTO, Errors errors) {
         User user = requestDTO.getUser();
         userService.updateUser(user);
         return user;
@@ -50,9 +52,16 @@ public class UserController {
 
     @PostMapping("/selectUser.do")
     @ResponseAdvice(failure = ResponseEnum.USER_NOT_EXIST)
-    public Object selectUser(@Valid @RequestBody UserSelectRequestDTO requestDTO, Errors errors) {
+    public Object selectUser(@Valid @RequestBody UserPanRequestDTO requestDTO, Errors errors) {
         int id = requestDTO.getId();
         return userService.getUser(id);
+    }
+
+    @PostMapping("/deleteUser.do")
+    public Object deleteUser(@Valid @RequestBody UserPanRequestDTO requestDTO, Errors errors) {
+        int id = requestDTO.getId();
+        userService.deleteUser(id);
+        return empty;
     }
 
     @PostMapping("/findAllUsers.do")

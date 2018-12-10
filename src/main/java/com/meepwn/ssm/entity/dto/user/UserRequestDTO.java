@@ -7,7 +7,7 @@ import lombok.Data;
  * @author MeePwn
  */
 @Data
-public class UserUpdateRequestDTO {
+public class UserRequestDTO {
 
     private User user;
 
