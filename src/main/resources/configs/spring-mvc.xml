@@ -27,7 +27,7 @@
                         <!-- 处理 ResponseBody 里面日期类型 -->
                         <property name="dateFormat">
                             <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:s"/>
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
                             </bean>
                         </property>
                         <!-- 为null字段时不显示 -->
