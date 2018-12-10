@@ -33,7 +33,7 @@ public enum ResponseEnum {
     /**
      * 接口访问异常
      */
-    EXCEPTION(ResponseCodeEnum.EXCEPTION.getRetCode(), "接口访问异常");
+    EXCEPTION(ResponseCodeEnum.EXCEPTION.getRetCode(), "接口请求异常");
 
     private String retCode;
     private String retMsg;

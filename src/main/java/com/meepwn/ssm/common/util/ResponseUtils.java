@@ -19,7 +19,7 @@ public class ResponseUtils {
     /**
      * 组装返回数据
      *
-     * @param value 返回数据
+     * @param value       返回数据
      * @param failureEnum 失败枚举
      * @return 响应数据
      */
@@ -30,7 +30,7 @@ public class ResponseUtils {
     /**
      * 组装返回数据
      *
-     * @param value 返回数据
+     * @param value       返回数据
      * @param successEnum 成功枚举
      * @param failureEnum 失败枚举
      * @return 响应数据
@@ -65,7 +65,7 @@ public class ResponseUtils {
         OutputDTO.Builder builder = (OutputDTO.Builder) BeanFactory.newInstance(OutputDTO.Builder.class);
         return Objects.requireNonNull(builder)
                 .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
-                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
+                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg() + ": " + exception.getMessage())
                 .setException(exception)
                 .build();
     }
