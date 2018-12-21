@@ -43,6 +43,8 @@
         <lombok.version>1.18.4</lombok.version>
         <!-- joda-time 时间日期处理库 -->
         <joda.version>2.10.1</joda.version>
+        <!-- phrase 字符串拼接库 -->
+        <phrase.version>1.1.0</phrase.version>
     </properties>
 
     <dependencies>
@@ -278,6 +280,14 @@
             <version>${joda.version}</version>
         </dependency>
         <!-- 日期时间转换 end -->
+
+        <!-- 字符串拼接 start -->
+        <dependency>
+            <groupId>com.squareup.phrase</groupId>
+            <artifactId>phrase</artifactId>
+            <version>${phrase.version}</version>
+        </dependency>
+        <!-- 字符串拼接 end -->
 
         <!-- https://mvnrepository.com/artifact/org.glassfish/javax.el -->
         <dependency>
