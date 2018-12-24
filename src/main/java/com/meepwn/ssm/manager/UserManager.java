@@ -1,6 +1,6 @@
 package com.meepwn.ssm.manager;
 
-import com.meepwn.ssm.common.util.RedisManager;
+import com.meepwn.ssm.common.manager.RedisManager;
 import com.meepwn.ssm.dao.UserDao;
 import com.meepwn.ssm.entity.po.User;
 import org.springframework.stereotype.Component;

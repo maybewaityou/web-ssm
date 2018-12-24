@@ -1,5 +1,6 @@
-package com.meepwn.ssm.common.util;
+package com.meepwn.ssm.common.manager;
 
+import com.meepwn.ssm.common.util.LogUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
