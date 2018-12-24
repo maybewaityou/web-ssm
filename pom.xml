@@ -21,6 +21,8 @@
         <!-- junit 版本号 -->
         <junit.version>4.12</junit.version>
         <javaEE.version>8.0</javaEE.version>
+        <!-- json-path 版本号 -->
+        <jsonpath.version>2.4.0</jsonpath.version>
         <!-- spring 版本号 -->
         <spring.version>5.1.2.RELEASE</spring.version>
         <!-- mybatis 版本号 -->
@@ -48,12 +50,19 @@
     </properties>
 
     <dependencies>
+        <!-- Mock 测试 start -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jsonpath.version}</version>
+        </dependency>
+        <!-- Mock 测试 end -->
 
         <!-- java ee start -->
         <dependency>

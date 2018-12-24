@@ -75,4 +75,9 @@ public class UserController {
         throw new ParamsPreparedException("报错了...");
     }
 
+    @PostMapping("/test.do")
+    @ResponseAdvice(failure = ResponseEnum.USER_NOT_EXIST)
+    public Object test(Errors errors) {
+        return empty;
+    }
 }

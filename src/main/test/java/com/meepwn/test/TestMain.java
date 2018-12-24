@@ -1,7 +1,7 @@
 package com.meepwn.test;
 
-import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.manager.RedisManager;
+import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
