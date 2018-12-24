@@ -36,6 +36,8 @@
         <!-- aspectj 版本号 -->
         <aspectj.version>1.9.2</aspectj.version>
         <jackson.version>2.9.7</jackson.version>
+        <!-- 文件上传版本号 -->
+        <fileupload.version>1.3.3</fileupload.version>
         <!-- log4j 日志包版本号 -->
         <slf4j.version>1.8.0-beta2</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
@@ -222,6 +224,14 @@
             <version>${jackson.version}</version>
         </dependency>
         <!-- JSON end -->
+
+        <!-- 文件上传 start -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${fileupload.version}</version>
+        </dependency>
+        <!-- 文件上传 end -->
 
         <!-- 添加日志相关 jar 包 start -->
         <dependency>

@@ -29,6 +29,14 @@ public enum ResponseEnum {
      * 用户列表为空
      */
     USER_LIST_IS_EMPTY(ResponseCodeEnum.FAILURE.getRetCode(), "用户列表为空"),
+    /**
+     * 文件上传成功
+     */
+    FILE_UPLOAD_SUCCESS(ResponseCodeEnum.SUCCESS.getRetCode(), "文件上传成功"),
+    /**
+     * 文件上传失败
+     */
+    FILE_UPLOAD_FAILURE(ResponseCodeEnum.SUCCESS.getRetCode(), "文件上传失败"),
 
     /**
      * 接口访问异常

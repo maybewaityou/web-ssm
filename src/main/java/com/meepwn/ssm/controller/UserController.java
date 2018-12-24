@@ -1,6 +1,7 @@
 package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
+import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
@@ -13,9 +14,12 @@ import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author MeePwn
@@ -68,6 +72,18 @@ public class UserController {
     @ResponseAdvice(failure = ResponseEnum.USER_LIST_IS_EMPTY)
     public Object findAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @PostMapping("/profileUpload.do")
+    @ResponseAdvice(success = ResponseEnum.FILE_UPLOAD_SUCCESS, failure = ResponseEnum.FILE_UPLOAD_FAILURE)
+    public Object profileUpload(MultipartFile file) {
+        Map<String, String> responseMap = new HashMap<>(10);
+        LogUtils.d("== name ===>>>> {}", file.getName());
+        LogUtils.d("== file original name ===>>>> {}", file.getOriginalFilename());
+        LogUtils.d("== file size ===>>>> {}", file.getSize());
+        responseMap.put("originFileName", file.getOriginalFilename());
+        responseMap.put("name", file.getName());
+        return responseMap;
     }
 
     @PostMapping("/throwsEx.do")
