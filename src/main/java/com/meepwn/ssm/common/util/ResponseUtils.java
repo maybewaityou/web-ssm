@@ -4,8 +4,11 @@ import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
 import com.meepwn.ssm.entity.dto.OutputDTO;
 import com.meepwn.ssm.entity.dto.ResponseDTO;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import javax.servlet.ServletResponse;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +18,19 @@ import java.util.Objects;
 public class ResponseUtils {
 
     public static final String JSON_CONTENT_TYPE = "application/json";
+
+    /**
+     * 获取下载文件 Headers
+     * @param file 文件
+     * @return 响应头
+     */
+    public static HttpHeaders getDownloadHeaders(File file) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", file.getName());
+        headers.setContentLength(file.length());
+        return headers;
+    }
 
     /**
      * 组装返回数据
