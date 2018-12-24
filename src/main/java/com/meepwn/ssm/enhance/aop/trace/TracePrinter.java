@@ -102,5 +102,4 @@ public class TracePrinter {
         START_TIME_THREAD_LOCAL.remove();
     }
 
-
 }

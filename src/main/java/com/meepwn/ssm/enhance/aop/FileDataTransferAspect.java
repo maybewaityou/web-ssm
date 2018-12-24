@@ -27,7 +27,6 @@ public class FileDataTransferAspect {
     @Resource
     private TracePrinter tracePrinter;
 
-
     /**
      * 注册切面
      */

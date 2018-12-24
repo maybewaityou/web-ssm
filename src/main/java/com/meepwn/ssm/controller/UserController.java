@@ -13,12 +13,9 @@ import com.meepwn.ssm.service.UserService;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author MeePwn
@@ -71,16 +68,6 @@ public class UserController {
     @ResponseAdvice(failure = ResponseEnum.USER_LIST_IS_EMPTY)
     public Object findAllUsers() {
         return userService.findAllUsers();
-    }
-
-    @PostMapping("/profileUpload.do")
-    @ResponseAdvice(success = ResponseEnum.FILE_UPLOAD_SUCCESS, failure = ResponseEnum.FILE_UPLOAD_FAILURE)
-    public Object profileUpload(MultipartFile file) {
-        Map<String, String> responseMap = new HashMap<>(10);
-        responseMap.put("name", file.getName());
-        responseMap.put("fileName", file.getOriginalFilename());
-        responseMap.put("fileSize", file.getSize() + "");
-        return responseMap;
     }
 
     @PostMapping("/throwsEx.do")
