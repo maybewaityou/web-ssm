@@ -25,6 +25,18 @@ public class ProceedHandler {
      * @return 返回参数
      * @throws Throwable 执行逻辑中可能抛出的异常
      */
+    public static Object proceedDownload(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
+        return joinPoint.proceed(args);
+    }
+
+        /**
+         * 执行 Controller 逻辑
+         *
+         * @param joinPoint 切面
+         * @param args      参数
+         * @return 返回参数
+         * @throws Throwable 执行逻辑中可能抛出的异常
+         */
     public static OutputDTO proceed(ProceedingJoinPoint joinPoint, Object[] args) throws Throwable {
         if (args.length > 0 && args[0] instanceof DataBinder) {
             joinPoint.proceed(args);

@@ -72,7 +72,9 @@ public class TracePrinter {
         long endTime = System.currentTimeMillis();
 
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
-        LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(outputDTO));
+        if (outputDTO != null) {
+            LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(outputDTO));
+        }
         LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();

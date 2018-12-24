@@ -4,16 +4,12 @@ import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.aop.handler.ProceedHandler;
 import com.meepwn.ssm.enhance.aop.trace.TracePrinter;
-import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.entity.dto.OutputDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -26,7 +22,7 @@ import java.util.Objects;
  */
 @Aspect
 @Component
-public class DataTransferAspect {
+public class FileUploadDataTransferAspect {
 
     @Resource
     private TracePrinter tracePrinter;
@@ -34,21 +30,18 @@ public class DataTransferAspect {
     /**
      * 注册切面
      */
-    @Pointcut("!execution(* com.meepwn.ssm.controller.*.*Download(..)) && !execution(* com.meepwn.ssm.controller.*.*Upload(..)) && execution(* com.meepwn.ssm.controller.*.*(..))")
-    public void dataTransferAspectMethod() {
+    @Pointcut("execution(* com.meepwn.ssm.controller.*.*Upload(..))")
+    public void fileUploadDataTransferAspectMethod() {
     }
 
-    @Around("dataTransferAspectMethod()")
-    public OutputDTO responseModel(ProceedingJoinPoint joinPoint) {
+    @Around("fileUploadDataTransferAspectMethod()")
+    public OutputDTO fileUploadResponseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         OutputDTO outputDTO;
         Object[] args = joinPoint.getArgs();
         try {
             // 请求日志
             tracePrinter.requestLog(args, request);
-
-            // 校验请求参数
-            validateParams(args);
 
             // 执行 Controller 逻辑
             outputDTO = ProceedHandler.proceed(joinPoint, args);
@@ -63,29 +56,6 @@ public class DataTransferAspect {
             tracePrinter.exceptionLog(args, outputDTO, request);
         }
         return outputDTO;
-    }
-
-    /**
-     * 校验请求参数
-     *
-     * @param args 请求参数
-     */
-    private void validateParams(Object[] args) {
-        if (args.length > 0 && args[0] instanceof DataBinder) {
-            return;
-        }
-
-        if (args.length > 1 && args[1] instanceof Errors) {
-            Errors errors = (Errors) args[1];
-            if (errors.hasErrors()) {
-                FieldError error = errors.getFieldError();
-                if (error != null) {
-                    throw new ParamsPreparedException("请求参数错误: " + error.getField() + " " + error.getDefaultMessage());
-                } else {
-                    throw new ParamsPreparedException("请求参数错误");
-                }
-            }
-        }
     }
 
 }

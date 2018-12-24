@@ -37,6 +37,14 @@ public enum ResponseEnum {
      * 文件上传失败
      */
     FILE_UPLOAD_FAILURE(ResponseCodeEnum.SUCCESS.getRetCode(), "文件上传失败"),
+    /**
+     * 文件上传成功
+     */
+    FILE_DOWNLOAD_SUCCESS(ResponseCodeEnum.SUCCESS.getRetCode(), "文件下载成功"),
+    /**
+     * 文件上传失败
+     */
+    FILE_DOWNLOAD_FAILURE(ResponseCodeEnum.SUCCESS.getRetCode(), "文件下载失败"),
 
     /**
      * 接口访问异常

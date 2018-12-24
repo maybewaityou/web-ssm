@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 @Aspect
 @Component
-public class FileDataTransferAspect {
+public class FileDownloadDataTransferAspect {
 
     @Resource
     private TracePrinter tracePrinter;
@@ -30,32 +30,33 @@ public class FileDataTransferAspect {
     /**
      * 注册切面
      */
-    @Pointcut("execution(* com.meepwn.ssm.controller.*.*Upload(..))")
-    public void fileDataTransferAspectMethod() {
+    @Pointcut("execution(* com.meepwn.ssm.controller.*.*Download(..))")
+    public void fileDownloadDataTransferAspectMethod() {
     }
 
-    @Around("fileDataTransferAspectMethod()")
-    public OutputDTO responseModel(ProceedingJoinPoint joinPoint) {
+    @Around("fileDownloadDataTransferAspectMethod()")
+    public Object fileDownResponseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        OutputDTO outputDTO;
         Object[] args = joinPoint.getArgs();
+        Object fileDTO;
         try {
             // 请求日志
             tracePrinter.requestLog(args, request);
 
             // 执行 Controller 逻辑
-            outputDTO = ProceedHandler.proceed(joinPoint, args);
+            fileDTO = ProceedHandler.proceedDownload(joinPoint, args);
 
             // 响应日志
-            tracePrinter.responseLog(args, outputDTO, request);
+            tracePrinter.responseLog(args, null, request);
         } catch (Throwable throwable) {
             LogUtils.e("{}", throwable);
-            outputDTO = ResponseUtils.error(throwable);
+            OutputDTO outputDTO = ResponseUtils.error(throwable);
 
             // 异常日志
             tracePrinter.exceptionLog(args, outputDTO, request);
+            return outputDTO;
         }
-        return outputDTO;
+        return fileDTO;
     }
 
 }
