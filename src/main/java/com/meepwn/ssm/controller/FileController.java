@@ -42,7 +42,7 @@ public class FileController {
         headers.setContentDispositionFormData("attachment", file.getName());
         headers.setContentLength(file.length());
         byte[] fileBytes = FileUtils.toByteArray(file);
-        return new ResponseEntity<>(fileBytes, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
     }
 
 }

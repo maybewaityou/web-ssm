@@ -74,6 +74,8 @@ public class TracePrinter {
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
         if (outputDTO != null) {
             LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(outputDTO));
+        } else {
+            LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(new Object()));
         }
         LogUtils.i(TIME_EL_STRING, (endTime - beginTime));
 
