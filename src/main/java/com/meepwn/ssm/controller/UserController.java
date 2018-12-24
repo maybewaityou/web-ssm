@@ -81,8 +81,9 @@ public class UserController {
         LogUtils.d("== name ===>>>> {}", file.getName());
         LogUtils.d("== file original name ===>>>> {}", file.getOriginalFilename());
         LogUtils.d("== file size ===>>>> {}", file.getSize());
-        responseMap.put("originFileName", file.getOriginalFilename());
         responseMap.put("name", file.getName());
+        responseMap.put("fileName", file.getOriginalFilename());
+        responseMap.put("fileSize", file.getSize() + "");
         return responseMap;
     }
 
