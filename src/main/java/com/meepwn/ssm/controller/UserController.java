@@ -1,7 +1,6 @@
 package com.meepwn.ssm.controller;
 
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
-import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
@@ -78,9 +77,6 @@ public class UserController {
     @ResponseAdvice(success = ResponseEnum.FILE_UPLOAD_SUCCESS, failure = ResponseEnum.FILE_UPLOAD_FAILURE)
     public Object profileUpload(MultipartFile file) {
         Map<String, String> responseMap = new HashMap<>(10);
-        LogUtils.d("== name ===>>>> {}", file.getName());
-        LogUtils.d("== file original name ===>>>> {}", file.getOriginalFilename());
-        LogUtils.d("== file size ===>>>> {}", file.getSize());
         responseMap.put("name", file.getName());
         responseMap.put("fileName", file.getOriginalFilename());
         responseMap.put("fileSize", file.getSize() + "");
