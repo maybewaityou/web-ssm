@@ -20,8 +20,8 @@ import java.io.File;
 /**
  * @author MeePwn
  */
-@RequestMapping("/file")
 @RestController
+@RequestMapping("/file")
 public class FileController {
 
     @Resource
