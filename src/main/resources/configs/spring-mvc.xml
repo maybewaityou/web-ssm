@@ -51,7 +51,7 @@
     <mvc:default-servlet-handler/>
     <!-- 跨域问题 -->
     <mvc:cors>
-        <mvc:mapping path="/**"/>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true"/>
     </mvc:cors>
 
     <!-- 文件上传 -->
