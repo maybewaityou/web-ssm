@@ -3,6 +3,10 @@ package com.meepwn.test;
 import com.meepwn.ssm.common.manager.RedisManager;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.enhance.factory.proxy.BeanProxyFactory;
+import com.meepwn.ssm.enhance.retry.BusinessException;
+import com.meepwn.ssm.enhance.retry.BusinessOperation;
+import com.meepwn.ssm.enhance.retry.Retry;
+import com.meepwn.ssm.enhance.retry.TestRetryOperation;
 import com.meepwn.ssm.entity.po.User;
 import com.meepwn.ssm.service.UserService;
 import com.meepwn.test.proxy.DaoTest;
@@ -91,6 +95,15 @@ public class TestMain {
     public void testRedis() {
         redisUtils.set("name", "张三");
         System.out.println(redisUtils.get("name"));
+    }
+
+    @Test
+    public void testRetry() throws BusinessException {
+        BusinessOperation<String> op = new Retry<>(new TestRetryOperation(new BusinessException("aassdd")), 3, () -> {
+            System.out.println("========");
+        });
+        op.perform();
+
     }
 
 }
