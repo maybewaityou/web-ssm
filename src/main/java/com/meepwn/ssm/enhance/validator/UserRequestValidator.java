@@ -26,6 +26,7 @@ public class UserRequestValidator implements Validator {
             if (id < 0) {
                 errors.rejectValue("id", "", "不能小于 0, 当前 id 为: " + id + " .");
             }
+//            ValidatorFlow.of(user).validate(User::getId, tmpId -> tmpId < 0, "不能小于 0, 当前 id 为: " + id + " .");
         } else if (o instanceof UserPanRequestDTO) {
             UserPanRequestDTO target = (UserPanRequestDTO) o;
             Integer id = target.getId();
