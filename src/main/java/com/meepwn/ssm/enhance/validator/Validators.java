@@ -11,27 +11,27 @@ import java.util.function.Predicate;
 /**
  * @author MeePwn
  */
-public class ValidatorFlow<T> {
+public class Validators<T> {
 
     private final T t;
     private final List<Throwable> exceptions = new ArrayList<>();
 
-    private ValidatorFlow(T t) {
+    private Validators(T t) {
         this.t = t;
     }
 
-    public static <T> ValidatorFlow<T> of(T t) {
-        return new ValidatorFlow<>(Objects.requireNonNull(t));
+    public static <T> Validators<T> of(T t) {
+        return new Validators<>(Objects.requireNonNull(t));
     }
 
-    public ValidatorFlow<T> validate(Predicate<T> validation, String message) {
+    public Validators<T> validate(Predicate<T> validation, String message) {
         if (!validation.test(t)) {
             exceptions.add(new ParamsPreparedException(message));
         }
         return this;
     }
 
-    public <U> ValidatorFlow<T> validate(Function<T, U> projection, Predicate<U> validation, String message) {
+    public <U> Validators<T> validate(Function<T, U> projection, Predicate<U> validation, String message) {
         return validate(projection.andThen(validation::test)::apply, message);
     }
 
