@@ -39,7 +39,7 @@ public class ValidatorFlow<T> {
         if (exceptions.isEmpty()) {
             return t;
         }
-        ParamsPreparedException e = new ParamsPreparedException("请求参数错误: ");
+        ParamsPreparedException e = new ParamsPreparedException("请求参数错误");
         exceptions.forEach(e::addSuppressed);
         throw e;
     }
@@ -50,7 +50,7 @@ public class ValidatorFlow<T> {
 
     public void apply() {
         if (hasError()) {
-            ParamsPreparedException e = new ParamsPreparedException("请求参数错误: ");
+            ParamsPreparedException e = new ParamsPreparedException("请求参数错误");
             exceptions.forEach(e::addSuppressed);
             throw e;
         }

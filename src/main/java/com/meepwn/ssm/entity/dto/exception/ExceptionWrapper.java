@@ -12,14 +12,14 @@ import java.util.List;
 public class ExceptionWrapper {
 
     private String message;
-    private List<String> details;
+    private List<SemanticExceptionDetails> details;
 
     public ExceptionWrapper(Throwable throwable) {
         this.message = throwable.getMessage();
         Throwable[] throwables = throwable.getSuppressed();
         details = new ArrayList<>(throwables.length);
         for (Throwable t : throwables) {
-            details.add(t.getMessage());
+            details.add(new SemanticExceptionDetails(t.getMessage()));
         }
     }
 
