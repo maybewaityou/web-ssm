@@ -5,6 +5,7 @@ import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
 import com.meepwn.ssm.entity.dto.DataDTO;
 import com.meepwn.ssm.entity.dto.ExceptionOutputDTO;
 import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.exception.ExceptionWrapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -82,8 +83,8 @@ public class ResponseUtils {
         ExceptionOutputDTO.Builder builder = (ExceptionOutputDTO.Builder) BeanFactory.newInstance(ExceptionOutputDTO.Builder.class);
         return Objects.requireNonNull(builder)
                 .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
-                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg() + " - " + exception.getMessage())
-                .setException(exception)
+                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg())
+                .setException(new ExceptionWrapper(exception))
                 .build();
     }
 

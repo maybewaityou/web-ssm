@@ -1,5 +1,6 @@
 package com.meepwn.ssm.entity.dto;
 
+import com.meepwn.ssm.entity.dto.exception.ExceptionWrapper;
 import lombok.Getter;
 
 /**
@@ -10,7 +11,7 @@ import lombok.Getter;
 public class ExceptionOutputDTO extends ResponseDTO {
 
     @Getter
-    private Throwable exception;
+    private ExceptionWrapper exception;
 
     public ExceptionOutputDTO(Builder builder) {
         retCode = builder.retCode;
@@ -21,7 +22,7 @@ public class ExceptionOutputDTO extends ResponseDTO {
     public static class Builder {
         private String retCode;
         private String retMsg;
-        private Throwable exception;
+        private ExceptionWrapper exception;
 
         public Builder setRetCode(String retCode) {
             this.retCode = retCode;
@@ -33,7 +34,7 @@ public class ExceptionOutputDTO extends ResponseDTO {
             return this;
         }
 
-        public Builder setException(Throwable exception) {
+        public Builder setException(ExceptionWrapper exception) {
             this.exception = exception;
             return this;
         }

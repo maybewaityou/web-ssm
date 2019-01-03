@@ -26,14 +26,15 @@ public class UserRequestValidator implements Validator {
             User user = target.getUser();
             int id = user.getId();
             ValidatorFlow.of(user)
-                    .validate(User::getId, value -> value >= 0, "id不能小于0, 当前id为: " + id + ".")
+                    .validate(User::getId, value -> value >= 0, "id不能小于0, 当前id为: " + id)
+                    .validate(User::getUserName, Objects::nonNull, "userName不能为空")
                     .apply();
         } else if (o instanceof UserPanRequestDTO) {
             UserPanRequestDTO target = (UserPanRequestDTO) o;
             Integer id = target.getId();
             ValidatorFlow.of(target)
                     .validate(UserPanRequestDTO::getId, Objects::nonNull, "id参数不存在")
-                    .validate(UserPanRequestDTO::getId, value -> value >= 0, "id不能小于0, 当前id为: " + id + ".")
+                    .validate(UserPanRequestDTO::getId, value -> value >= 0, "id不能小于0, 当前id为: " + id)
                     .apply();
         }
     }

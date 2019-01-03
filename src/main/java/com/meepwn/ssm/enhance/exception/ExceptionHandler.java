@@ -19,8 +19,8 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-            ResponseDTO outputDTO = ResponseUtils.error(ex);
-            String jsonString = JsonUtils.toJSONString(outputDTO);
+            ResponseDTO responseDTO = ResponseUtils.error(ex);
+            String jsonString = JsonUtils.toJSONString(responseDTO);
 
             LogUtils.e("== url ===>>>> {}", request.getRequestURI());
             LogUtils.e("== exception ===>>>> {}", jsonString);
