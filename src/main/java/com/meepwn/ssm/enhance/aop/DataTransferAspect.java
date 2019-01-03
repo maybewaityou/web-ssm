@@ -4,7 +4,7 @@ import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.aop.handler.ProceedHandler;
 import com.meepwn.ssm.enhance.aop.trace.TracePrinter;
-import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -35,27 +35,27 @@ public class DataTransferAspect {
     }
 
     @Around("dataTransferAspectMethod()")
-    public OutputDTO responseModel(ProceedingJoinPoint joinPoint) {
+    public ResponseDTO responseModel(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        OutputDTO outputDTO;
+        ResponseDTO responseDTO;
         Object[] args = joinPoint.getArgs();
         try {
             // 请求日志
             tracePrinter.requestLog(args, request);
 
             // 执行 Controller 逻辑
-            outputDTO = ProceedHandler.proceed(joinPoint, args);
+            responseDTO = ProceedHandler.proceed(joinPoint, args);
 
             // 响应日志
-            tracePrinter.responseLog(args, outputDTO, request);
+            tracePrinter.responseLog(args, responseDTO, request);
         } catch (Throwable throwable) {
             LogUtils.e("{}", throwable);
-            outputDTO = ResponseUtils.error(throwable);
+            responseDTO = ResponseUtils.error(throwable);
 
             // 异常日志
-            tracePrinter.exceptionLog(args, outputDTO, request);
+            tracePrinter.exceptionLog(args, responseDTO, request);
         }
-        return outputDTO;
+        return responseDTO;
     }
 
 }

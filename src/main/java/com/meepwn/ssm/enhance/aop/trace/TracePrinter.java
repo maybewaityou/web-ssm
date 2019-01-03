@@ -2,7 +2,7 @@ package com.meepwn.ssm.enhance.aop.trace;
 
 import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
-import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.DataBinder;
@@ -58,10 +58,10 @@ public class TracePrinter {
      * 打印日志(响应)
      *
      * @param args      请求参数
-     * @param outputDTO 响应报文
+     * @param responseDTO 响应报文
      * @param request   请求
      */
-    public void responseLog(Object[] args, OutputDTO outputDTO, HttpServletRequest request) {
+    public void responseLog(Object[] args, ResponseDTO responseDTO, HttpServletRequest request) {
         if (args.length > 0 && args[0] instanceof DataBinder) {
             return;
         }
@@ -72,8 +72,8 @@ public class TracePrinter {
         long endTime = System.currentTimeMillis();
 
         LogUtils.i(URL_EL_STRING, request.getRequestURI());
-        if (outputDTO != null) {
-            LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(outputDTO));
+        if (responseDTO != null) {
+            LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(responseDTO));
         } else {
             LogUtils.i(RESPONSE_EL_STRING, JsonUtils.toJSONString(new Object()));
         }
@@ -86,10 +86,10 @@ public class TracePrinter {
      * 打印日志(异常)
      *
      * @param args      请求参数
-     * @param outputDTO 响应实体
+     * @param responseDTO 响应实体
      * @param request   请求
      */
-    public void exceptionLog(Object[] args, OutputDTO outputDTO, HttpServletRequest request) {
+    public void exceptionLog(Object[] args, ResponseDTO responseDTO, HttpServletRequest request) {
         if (args.length > 0 && args[0] instanceof DataBinder) {
             return;
         }
@@ -100,7 +100,7 @@ public class TracePrinter {
         long endTime = System.currentTimeMillis();
 
         LogUtils.e(URL_EL_STRING, request.getRequestURI());
-        LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(outputDTO));
+        LogUtils.e(EXCEPTION_EL_STRING, JsonUtils.toJSONString(responseDTO));
         LogUtils.e(TIME_EL_STRING, (endTime - beginTime));
 
         START_TIME_THREAD_LOCAL.remove();

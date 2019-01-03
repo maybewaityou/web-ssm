@@ -2,8 +2,9 @@ package com.meepwn.ssm.common.util;
 
 import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.factory.bean.BeanFactory;
+import com.meepwn.ssm.entity.dto.DataDTO;
+import com.meepwn.ssm.entity.dto.ExceptionOutputDTO;
 import com.meepwn.ssm.entity.dto.OutputDTO;
-import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -52,33 +53,33 @@ public class ResponseUtils {
      * @return 响应数据
      */
     public static OutputDTO outputDTO(Object value, ResponseEnum successEnum, ResponseEnum failureEnum) {
-        ResponseDTO.Builder builder = (ResponseDTO.Builder) BeanFactory.newInstance(ResponseDTO.Builder.class);
-        ResponseDTO responseDTO = Objects.requireNonNull(builder)
+        DataDTO.Builder builder = (DataDTO.Builder) BeanFactory.newInstance(DataDTO.Builder.class);
+        DataDTO dataDTO = Objects.requireNonNull(builder)
                 .setSuccessEnum(successEnum)
                 .setFailureEnum(failureEnum)
                 .setValue(value)
                 .build();
-        return outputDTO(responseDTO);
+        return outputDTO(dataDTO);
     }
 
     /**
      * 响应数据
      *
-     * @param responseDTO 返回结果
+     * @param dataDTO 返回结果
      * @param args        可选参数
      * @return 响应数据
      */
-    public static OutputDTO outputDTO(ResponseDTO responseDTO, Object... args) {
-        Object value = responseDTO.getValue();
+    public static OutputDTO outputDTO(DataDTO dataDTO, Object... args) {
+        Object value = dataDTO.getValue();
         if (value instanceof List) {
-            return responseListModel(null, responseDTO, args);
+            return responseListModel(null, dataDTO, args);
         } else {
-            return responseModel(null, responseDTO, args);
+            return responseModel(null, dataDTO, args);
         }
     }
 
-    public static OutputDTO error(Throwable exception) {
-        OutputDTO.Builder builder = (OutputDTO.Builder) BeanFactory.newInstance(OutputDTO.Builder.class);
+    public static ExceptionOutputDTO error(Throwable exception) {
+        ExceptionOutputDTO.Builder builder = (ExceptionOutputDTO.Builder) BeanFactory.newInstance(ExceptionOutputDTO.Builder.class);
         return Objects.requireNonNull(builder)
                 .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
                 .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg() + ": " + exception.getMessage())
@@ -90,13 +91,13 @@ public class ResponseUtils {
      * 响应数据
      *
      * @param response    响应对象
-     * @param responseDTO 返回数据
+     * @param dataDTO 返回数据
      * @param args        可选参数
      * @return 响应数据
      */
-    public static OutputDTO responseModel(ServletResponse response, ResponseDTO responseDTO, Object... args) {
-        Object value = responseDTO.getValue();
-        OutputDTO.Builder builder = setResponseInfo(value == null, responseDTO.getSuccessEnum(), responseDTO.getFailureEnum());
+    public static OutputDTO responseModel(ServletResponse response, DataDTO dataDTO, Object... args) {
+        Object value = dataDTO.getValue();
+        OutputDTO.Builder builder = setResponseInfo(value == null, dataDTO.getSuccessEnum(), dataDTO.getFailureEnum());
         OutputDTO outputDTO = builder.setData(value).build();
 
         if (response != null) {
@@ -110,14 +111,14 @@ public class ResponseUtils {
      * 响应数据
      *
      * @param response    响应对象
-     * @param responseDTO 返回数据
+     * @param dataDTO 返回数据
      * @param args        可选参数
      * @return 响应数据
      */
-    public static OutputDTO responseListModel(ServletResponse response, ResponseDTO responseDTO, Object... args) {
-        List list = (List) responseDTO.getValue();
+    public static OutputDTO responseListModel(ServletResponse response, DataDTO dataDTO, Object... args) {
+        List list = (List) dataDTO.getValue();
         boolean isEmpty = list.isEmpty();
-        OutputDTO.Builder builder = setResponseInfo(isEmpty, responseDTO.getSuccessEnum(), responseDTO.getFailureEnum());
+        OutputDTO.Builder builder = setResponseInfo(isEmpty, dataDTO.getSuccessEnum(), dataDTO.getFailureEnum());
         OutputDTO outputDTO;
         if (isEmpty) {
             outputDTO = builder.build();

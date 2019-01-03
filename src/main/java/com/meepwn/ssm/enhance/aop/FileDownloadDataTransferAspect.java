@@ -4,7 +4,7 @@ import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.aop.handler.ProceedHandler;
 import com.meepwn.ssm.enhance.aop.trace.TracePrinter;
-import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -50,11 +50,11 @@ public class FileDownloadDataTransferAspect {
             tracePrinter.responseLog(args, null, request);
         } catch (Throwable throwable) {
             LogUtils.e("{}", throwable);
-            OutputDTO outputDTO = ResponseUtils.error(throwable);
+            ResponseDTO responseDTO = ResponseUtils.error(throwable);
 
             // 异常日志
-            tracePrinter.exceptionLog(args, outputDTO, request);
-            return outputDTO;
+            tracePrinter.exceptionLog(args, responseDTO, request);
+            return responseDTO;
         }
         return fileDTO;
     }

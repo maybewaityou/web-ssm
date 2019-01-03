@@ -3,7 +3,7 @@ package com.meepwn.ssm.enhance.exception;
 import com.meepwn.ssm.common.util.JsonUtils;
 import com.meepwn.ssm.common.util.LogUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
-import com.meepwn.ssm.entity.dto.OutputDTO;
+import com.meepwn.ssm.entity.dto.ResponseDTO;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
@@ -19,7 +19,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-            OutputDTO outputDTO = ResponseUtils.error(ex);
+            ResponseDTO outputDTO = ResponseUtils.error(ex);
             String jsonString = JsonUtils.toJSONString(outputDTO);
 
             LogUtils.e("== url ===>>>> {}", request.getRequestURI());

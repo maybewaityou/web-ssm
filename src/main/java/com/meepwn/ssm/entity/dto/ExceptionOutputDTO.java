@@ -2,33 +2,26 @@ package com.meepwn.ssm.entity.dto;
 
 import lombok.Getter;
 
-import java.util.List;
-
 /**
  * @author MeePwn
  * <p>
- * 响应数据
+ * 异常响应
  */
-public class OutputDTO extends ResponseDTO {
+public class ExceptionOutputDTO extends ResponseDTO {
 
     @Getter
-    private Object data;
+    private Throwable exception;
 
-    @Getter
-    private List dataList;
-
-    public OutputDTO(Builder builder) {
+    public ExceptionOutputDTO(Builder builder) {
         retCode = builder.retCode;
         retMsg = builder.retMsg;
-        data = builder.data;
-        dataList = builder.dataList;
+        exception = builder.exception;
     }
 
     public static class Builder {
         private String retCode;
         private String retMsg;
-        private Object data;
-        private List dataList;
+        private Throwable exception;
 
         public Builder setRetCode(String retCode) {
             this.retCode = retCode;
@@ -40,29 +33,23 @@ public class OutputDTO extends ResponseDTO {
             return this;
         }
 
-        public Builder setData(Object data) {
-            this.data = data;
+        public Builder setException(Throwable exception) {
+            this.exception = exception;
             return this;
         }
 
-        public Builder setDataList(List dataList) {
-            this.dataList = dataList;
-            return this;
-        }
-
-        public OutputDTO build() {
-            return new OutputDTO(this);
+        public ExceptionOutputDTO build() {
+            return new ExceptionOutputDTO(this);
         }
 
     }
 
     @Override
     public String toString() {
-        return "OutputDTO{" +
+        return "ExceptionOutputDTO{" +
                 "retCode='" + retCode + '\'' +
                 ", retMsg='" + retMsg + '\'' +
-                ", data=" + data +
-                ", dataList=" + dataList +
+                ", exception=" + exception +
                 '}';
     }
 }

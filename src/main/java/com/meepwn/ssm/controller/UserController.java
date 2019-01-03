@@ -4,7 +4,7 @@ import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
 import com.meepwn.ssm.enhance.exception.ParamsPreparedException;
 import com.meepwn.ssm.enhance.validator.UserRequestValidator;
-import com.meepwn.ssm.entity.dto.ResponseDTO;
+import com.meepwn.ssm.entity.dto.DataDTO;
 import com.meepwn.ssm.entity.dto.user.UserPanRequestDTO;
 import com.meepwn.ssm.entity.dto.user.UserRequestDTO;
 import com.meepwn.ssm.entity.po.Empty;
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/throwsEx.do")
-    public ResponseDTO throwsEx() {
+    public DataDTO throwsEx() {
         throw new ParamsPreparedException("报错了...");
     }
 
