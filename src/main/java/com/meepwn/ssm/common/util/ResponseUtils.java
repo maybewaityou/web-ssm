@@ -82,7 +82,7 @@ public class ResponseUtils {
         ExceptionOutputDTO.Builder builder = (ExceptionOutputDTO.Builder) BeanFactory.newInstance(ExceptionOutputDTO.Builder.class);
         return Objects.requireNonNull(builder)
                 .setRetCode(ResponseEnum.EXCEPTION.getRetCode())
-                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg() + ": " + exception.getMessage())
+                .setRetMsg(ResponseEnum.EXCEPTION.getRetMsg() + " - " + exception.getMessage())
                 .setException(exception)
                 .build();
     }
