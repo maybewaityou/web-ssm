@@ -18,7 +18,7 @@ public class HotUpdateController {
 
     @PostMapping("/checkForUpdate.do")
     @ResponseAdvice(failure = ResponseEnum.FAILURE)
-    public Object registerUser() {
+    public Object checkForUpdate() {
         Map<String, Integer> map = new HashMap<>(2);
         map.put("bundleVersion", 2);
         map.put("androidVersion", 10);
