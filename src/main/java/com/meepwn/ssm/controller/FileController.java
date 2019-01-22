@@ -37,8 +37,9 @@ public class FileController {
     @GetMapping("/fileDownload.do")
     @ResponseAdvice(success = ResponseEnum.FILE_DOWNLOAD_SUCCESS, failure = ResponseEnum.FILE_DOWNLOAD_FAILURE)
     public ResponseEntity<byte[]> fileDownload(FileDownloadRequestDTO requestDTO) {
+        String moduleName = requestDTO.getModuleName();
         String bundleType = requestDTO.getBundleType();
-        File file = new File(bundleType);
+        File file = new File("/Users/MeePwn/Desktop/MeePwn/Sites/zzzz/" + moduleName + bundleType + "/bundle.zip");
         HttpHeaders headers = ResponseUtils.getDownloadHeaders(file);
         byte[] fileBytes = FileUtils.toByteArray(file);
         return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);

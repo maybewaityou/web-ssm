@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class FileDownloadRequestDTO {
 
+    private String moduleName;
     private String bundleType;
 
 }
