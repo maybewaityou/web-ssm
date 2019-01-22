@@ -9,8 +9,8 @@ import com.meepwn.ssm.entity.po.Empty;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,9 +34,9 @@ public class FileController {
         return empty;
     }
 
-    @GetMapping("/fileDownload.do")
+    @PostMapping("/fileDownload.do")
     @ResponseAdvice(success = ResponseEnum.FILE_DOWNLOAD_SUCCESS, failure = ResponseEnum.FILE_DOWNLOAD_FAILURE)
-    public ResponseEntity<byte[]> fileDownload(FileDownloadRequestDTO requestDTO) {
+    public ResponseEntity<byte[]> fileDownload(@RequestBody FileDownloadRequestDTO requestDTO) {
         String moduleName = requestDTO.getModuleName();
         String bundleType = requestDTO.getBundleType();
         File file = new File("/Users/MeePwn/Desktop/MeePwn/Sites/zzzz/" + moduleName + bundleType + "/bundle.zip");
