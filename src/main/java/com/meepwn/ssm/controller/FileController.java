@@ -39,7 +39,7 @@ public class FileController {
     public ResponseEntity<byte[]> fileDownload(@RequestBody FileDownloadRequestDTO requestDTO) {
         String moduleName = requestDTO.getModuleName();
         String bundleType = requestDTO.getBundleType();
-        File file = new File("/Users/MeePwn/Desktop/MeePwn/Sites/zzzz/" + moduleName + bundleType + "/bundle.zip");
+        File file = new File("/Users/MeePwn/Desktop/MeePwn/Sites/zzzz/" + moduleName + "/" + bundleType + "/bundle.zip");
         HttpHeaders headers = ResponseUtils.getDownloadHeaders(file);
         byte[] fileBytes = FileUtils.toByteArray(file);
         return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
