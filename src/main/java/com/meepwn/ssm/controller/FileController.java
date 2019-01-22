@@ -4,6 +4,7 @@ import com.meepwn.ssm.common.constant.response.ResponseEnum;
 import com.meepwn.ssm.common.util.FileUtils;
 import com.meepwn.ssm.common.util.ResponseUtils;
 import com.meepwn.ssm.enhance.annotation.advice.ResponseAdvice;
+import com.meepwn.ssm.entity.dto.file.FileDownloadRequestDTO;
 import com.meepwn.ssm.entity.po.Empty;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,9 @@ public class FileController {
 
     @GetMapping("/fileDownload.do")
     @ResponseAdvice(success = ResponseEnum.FILE_DOWNLOAD_SUCCESS, failure = ResponseEnum.FILE_DOWNLOAD_FAILURE)
-    public ResponseEntity<byte[]> fileDownload() {
-        File file = new File("/Users/MeePwn/Pictures/4a340003f0d37be5e49d.jpg");
+    public ResponseEntity<byte[]> fileDownload(FileDownloadRequestDTO requestDTO) {
+        String bundleType = requestDTO.getBundleType();
+        File file = new File(bundleType);
         HttpHeaders headers = ResponseUtils.getDownloadHeaders(file);
         byte[] fileBytes = FileUtils.toByteArray(file);
         return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
