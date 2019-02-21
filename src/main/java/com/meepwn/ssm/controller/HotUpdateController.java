@@ -23,7 +23,7 @@ public class HotUpdateController {
     public Object checkForUpdate(@RequestBody VersionCheckRequestDTO requestDTO) {
         String moduleName = requestDTO.getModuleName();
         Map<String, Integer> map = new HashMap<>(2);
-        map.put("bundleVersion", 2);
+        map.put("bundleVersion", 1);
         map.put("androidVersion", 10);
         return map;
     }
