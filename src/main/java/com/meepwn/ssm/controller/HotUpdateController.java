@@ -24,7 +24,7 @@ public class HotUpdateController {
         String moduleName = requestDTO.getModuleName();
         Map<String, Integer> map = new HashMap<>(2);
         map.put("bundleVersion", 1);
-        map.put("androidVersion", 10);
+        map.put("androidVersion", 46);
         return map;
     }
 
